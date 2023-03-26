@@ -8,6 +8,7 @@ import java.util.Set;
 @Table(name = "articulo")
 public class Articulo {
 
+    //prueba commit
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idArticulo")
