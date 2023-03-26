@@ -8,7 +8,7 @@ import java.util.Set;
 @Table(name = "articulo")
 public class Articulo {
 
-    //prueba commit
+    //prueba commit 2
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idArticulo")
