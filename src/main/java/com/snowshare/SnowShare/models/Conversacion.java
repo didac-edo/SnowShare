@@ -1,0 +1,81 @@
+package com.snowshare.SnowShare.models;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "conversacion")
+public class Conversacion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idConversacion")
+    private Integer idConversacion;
+
+    @Column(name = "mensaje")
+    private String mensaje;
+
+    @Column(name = "fechaHora")
+    private LocalDateTime fechaHora;
+
+    @ManyToOne
+    @JoinColumn(name = "idUsuario", referencedColumnName = "IdUsuario")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "idPropietario", referencedColumnName = "IdUsuario")
+    private Usuario propietario;
+
+    @ManyToOne
+    @JoinColumn(name = "idArticulo", referencedColumnName = "idArticulo")
+    private Articulo articulo;
+
+    public Integer getIdConversacion() {
+        return idConversacion;
+    }
+
+    public void setIdConversacion(Integer idConversacion) {
+        this.idConversacion = idConversacion;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Usuario getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(Usuario propietario) {
+        this.propietario = propietario;
+    }
+
+    public Articulo getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(Articulo articulo) {
+        this.articulo = articulo;
+    }
+}
