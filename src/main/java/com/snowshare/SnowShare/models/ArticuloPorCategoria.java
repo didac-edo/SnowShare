@@ -19,27 +19,5 @@ public class ArticuloPorCategoria {
     @JoinColumn(name = "idCategoria", referencedColumnName = "idCategoria")
     private Categoria categoria;
 
-    public Integer getIdProductoCategoria() {
-        return idProductoCategoria;
-    }
 
-    public void setIdProductoCategoria(Integer idProductoCategoria) {
-        this.idProductoCategoria = idProductoCategoria;
-    }
-
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 }

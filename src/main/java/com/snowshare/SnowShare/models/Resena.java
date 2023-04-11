@@ -22,46 +22,7 @@ public class Resena {
     private Articulo articulo;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "IdUsuario")
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     private Usuario usuario;
 
-    public Integer getIdComentario() {
-        return idComentario;
-    }
-
-    public void setIdComentario(Integer idComentario) {
-        this.idComentario = idComentario;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
-    }
-
-    public Integer getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(Integer calificacion) {
-        this.calificacion = calificacion;
-    }
-
-    public Articulo getArticulo() {
-        return articulo;
-    }
-
-    public void setArticulo(Articulo articulo) {
-        this.articulo = articulo;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 }
