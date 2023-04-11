@@ -82,6 +82,7 @@ public class Articulo {
         return precio;
     }
 
+    //didac
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
