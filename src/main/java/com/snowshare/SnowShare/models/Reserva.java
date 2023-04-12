@@ -1,7 +1,6 @@
 package com.snowshare.SnowShare.models;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity

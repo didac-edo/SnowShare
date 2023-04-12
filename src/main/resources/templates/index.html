@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>plicación con Spring Boot</title>
+    <title>Aplicación con Spring Boot</title>
     <!-- Incluye tu archivo CSS personalizado -->
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 
@@ -12,6 +12,12 @@
 <body>
 <div class="container">
     <h1>Aplicación con Spring Boot</h1>
+
+    <!-- Botón de inicio de sesión -->
+    <button onclick="window.location.href='/login'">Iniciar sesión</button>
+
+    <!-- Botón de registro -->
+    <button onclick="window.location.href='/usuarios'">Registrarse</button>
 
 </div>
 </body>

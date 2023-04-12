@@ -1,6 +1,6 @@
 package com.snowshare.SnowShare.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.Set;
 
@@ -22,13 +22,68 @@ public class Usuario {
     @Column(name = "contraseña")
     private String contraseña;
 
-    @ManyToOne
-    @JoinColumn(name = "idRedSocial", referencedColumnName = "idRedSocial")
-    private RedSocial redSocial;
+    @Column(name = "fotoPerfil")
+    private String fotoPerfil;
 
     @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Articulo> articulos;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resena> resenas;
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
+
+    public Set<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(Set<Articulo> articulos) {
+        this.articulos = articulos;
+    }
+
+    public Set<Resena> getResenas() {
+        return resenas;
+    }
+
+    public void setResenas(Set<Resena> resenas) {
+        this.resenas = resenas;
+    }
 }

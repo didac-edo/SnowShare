@@ -1,6 +1,6 @@
 package com.snowshare.SnowShare.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "articuloporcategoria")
