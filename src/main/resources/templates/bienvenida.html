@@ -6,6 +6,8 @@
     <title>Bienvenida</title>
 </head>
 <body>
-<h1>Bienvenido, <span th:text="${nombreUsuario}"></span>!</h1>
+    <h1>Bienvenido, <span th:text="${nombreUsuario}"></span>!</h1>
+    <img th:src="'data:image/png;base64,' + ${rutaImagenPerfil}" alt="Imagen de perfil">
+
 </body>
 </html>

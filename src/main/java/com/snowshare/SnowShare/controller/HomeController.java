@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +35,16 @@ public class HomeController {
     public String agregarUsuario(@RequestParam String nombre,
                                  @RequestParam String contrasena,
                                  @RequestParam String correoElectronico,
-                                 @RequestParam String fotoPerfil) {
+                                 @RequestParam("fotoPerfil") MultipartFile fotoPerfil) throws IOException {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setContraseña(passwordEncoder.encode(contrasena));
         usuario.setCorreoElectronico(correoElectronico);
-        usuario.setFotoPerfil(fotoPerfil);
+        usuario.setFotoPerfil(fotoPerfil.getBytes());
 
         usuarioRepository.save(usuario);
         return "redirect:/usuarios";
     }
+
 
 }

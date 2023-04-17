@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1>Crear usuario</h1>
-    <form action="#" th:action="@{/usuarios}" th:object="${usuario}" method="post">
+    <form id="formularioUsuario" action="#" th:action="@{/usuarios}" th:object="${usuario}" method="post" enctype="multipart/form-data">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required />
 
@@ -20,10 +20,13 @@
         <input type="email" id="correoElectronico" name="correoElectronico" required />
 
         <label for="fotoPerfil">Foto de perfil:</label>
-        <input type="text" id="fotoPerfil" name="fotoPerfil" required />
+        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" required />
 
-        <button type="submit">Crear usuario</button>
+        <button id="botonCrearUsuario" type="submit">Crear usuario</button>
     </form>
+
+
+
 </div>
 </body>
 </html>

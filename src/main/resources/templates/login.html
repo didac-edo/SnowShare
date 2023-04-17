@@ -1,20 +1,108 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <script th:src="@{/main.js}"></script>
+    <title>Document</title>
 </head>
+
 <body>
-<div th:if="${param.error}">
-    <p>Correo electrónico o contraseña incorrecta. Por favor, intenta nuevamente.</p>
+
+<nav>
+    <input type="checkbox" id="check-menu">
+    <label for="check-menu" class="checkbtn">
+        <i class="fas fa-bars"></i>
+    </label>
+
+    <a href="#" class="enlace">
+        <img src="fotos/logo.png" alt="" class="logo">
+    </a>
+    <ul>
+        <li><a href="como funciona.html">Como funciona</a></li>
+        <li><a href="#">Publicar artículo</a></li>
+        <li><a href="#">Iniciar sesion o registrarse</a></li>
+    </ul>
+</nav>
+
+
+<div class="login-wrap">
+    <div class="login-html">
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Iniciar
+        sesión</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registrarse</label>
+        <div class="login-form">
+            <form th:action="@{/login}" method="post">
+                <div class="sign-in-htm">
+                    <div class="group">
+                        <label for="correoElectronicoIn">Correo electrónico:</label>
+                        <input type="email" id="correoElectronicoIn" name="username" class="input" required>
+                    </div>
+                    <div class="group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" class="input" required>
+                    </div>
+                    <div class="group">
+                        <input id="check" type="checkbox" class="check" checked>
+                        <label for="check"><span class="icon"></span> Mantenerme conectado</label>
+                    </div>
+                    <div class="group">
+                        <button type="submit" class="button">Iniciar sesión</button>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <a href="#forgot">¿Olvidaste la contraseña?</a>
+                    </div>
+                </div>
+            </form>
+            <form id="formularioUsuario" action="#" th:action="@{/usuarios}" th:object="${usuario}" method="post" enctype="multipart/form-data">
+                <div class="sign-up-htm">
+                    <div class="group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" class="input" required />
+                    </div>
+                    <div class="group">
+                        <label for="contrasena">Contraseña:</label>
+                        <input type="password" id="contrasena" name="contrasena" class="input" required />
+                    </div>
+                    <div class="group">
+                        <label for="correoElectronico">Correo electrónico:</label>
+                        <input type="email" id="correoElectronico" name="correoElectronico" class="input" required />
+                    </div>
+                    <div class="group">
+                        <label for="fotoPerfil">Foto de perfil:</label>
+                        <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*" class="input" required />
+                    </div>
+                    <div class="group">
+                        <button id="botonCrearUsuario" class="button" type="submit">Crear usuario</button>
+                    </div>
+                    <div class="hr"></div>
+                    <div class="foot-lnk">
+                        <label for="tab-1">¿Ya eres miembro?</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<form th:action="@{/login}" method="post">
-    <label for="correoElectronico">Correo electrónico:</label>
-    <input type="email" id="correoElectronico" name="username" required>
-    <br>
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <button type="submit">Iniciar sesión</button>
-</form>
+
+<footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+        <button><img src="fotos/instagram.png" alt="Icono 1"></button>
+        <button><img src="fotos/twitter.png" alt="Icono 2"></button>
+        <button><img src="fotos/facebook.png" alt="Icono 3"></button>
+    </div>
+</footer>
+
+
 </body>
+
 </html>
