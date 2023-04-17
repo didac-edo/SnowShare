@@ -4,23 +4,23 @@
     text-decoration: none;
     list-style: none;
     box-sizing: border-box;
-}
+} 
 
 /* Agrega estilos para ocultar la lista del menú por defecto */
 #menu {
 	display: none;
   }
-
+  
   /* Agrega estilos para mostrar la lista del menú cuando tiene la clase 'active' */
   #menu.active {
 	display: block;
   }
-
+  
   /* Agrega estilos para el botón de hamburguesa en estado activo */
   .checkbtn.active .fas {
 	color: #000; /* Cambia el color del icono a tu preferencia */
   }
-
+  
 /* posicion del logo y forma */
 .enlace{
     position: absolute;
@@ -44,8 +44,8 @@ nav ul li{
     margin: 0 5px;
 }
 /* lista de menu nav el color de las palabras */
- nav ul li a{
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ nav ul li a{   
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;                    
     color: rgb(23, 48, 82);
     font-size: 18px;
     padding: 7px 13px;
@@ -65,8 +65,8 @@ li a.active, li a:hover{
     line-height: 80px;
     margin-right: 40px;
     cursor: pointer;
-
-
+    
+    
 }
 .checkbtn{
     display: block;
@@ -79,8 +79,8 @@ li a.active, li a:hover{
 .fa-bars {
     font-size: 24px;
   }
-
-
+  
+  
 
 /* contenedor de buscar largo colores, etc */
 
@@ -95,7 +95,7 @@ body{
 a{color:inherit;text-decoration:none}
 
 .login-wrap{
-
+	
 	width:100%;
 	padding-top: 10%;
 	margin:auto;
@@ -244,7 +244,7 @@ footer {
 	height: 150px;
 	padding: 0 20px;
   }
-
+  
   footer button {
 	color: white;
 	background-color: transparent;
@@ -253,49 +253,28 @@ footer {
 	margin-right: 20px;
 	cursor: pointer;
   }
-
+  
   footer button:hover {
 	text-decoration: underline;
   }
-
+  
   footer .iconos {
 	display: flex;
   }
-
+  
   footer .iconos button {
 	background-color: transparent;
 	border: none;
 	margin-right: 10px;
 	cursor: pointer;
   }
-
+  
   footer .iconos button:hover img {
 	filter: brightness(1.2);
   }
-
+  
   footer .iconos button img {
 	width: 30px;
 	height: 30px;
 	transition: filter 0.2s ease-in-out;
   }
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-}
-
-h1 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}

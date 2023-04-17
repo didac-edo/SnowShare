@@ -23,7 +23,7 @@ public class Usuario {
     private String contraseña;
 
     @Column(name = "fotoPerfil")
-    private String fotoPerfil;
+    private byte[] fotoPerfil;
 
     @OneToMany(mappedBy = "propietario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Articulo> articulos;
@@ -63,11 +63,11 @@ public class Usuario {
         this.contraseña = contraseña;
     }
 
-    public String getFotoPerfil() {
+    public byte[] getFotoPerfil() {
         return fotoPerfil;
     }
 
-    public void setFotoPerfil(String fotoPerfil) {
+    public void setFotoPerfil(byte[] fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }
 
