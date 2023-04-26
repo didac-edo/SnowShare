@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Nuevo Artículo</title>
+
+    <script>
+        function validarNumeroDeArchivos(input, maxFiles) {
+            if (input.files.length > maxFiles) {
+                alert("No puedes seleccionar más de " + maxFiles + " imágenes.");
+                input.value = "";
+            }
+        }
+    </script>
+
+</head>
+<body>
+<h1>Crear Nuevo Artículo</h1>
+
+<form action="#" th:action="@{/crear_articulo}" th:object="${articulo}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required>
+    </div>
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" th:field="*{descripcion}" required>
+    </div>
+    <div>
+        <label for="codigoPostal">Código Postal:</label>
+        <input type="number" id="codigoPostal" th:field="*{codigoPostal}" required>
+    </div>
+    <div>
+        <label for="precioDia">Precio por día:</label>
+        <input type="number" id="precioDia" step="0.01" th:field="*{precioDia}" required>
+    </div>
+    <div>
+        <label for="diasMinimo">Días mínimo:</label>
+        <input type="number" id="diasMinimo" th:field="*{diasMinimo}" required>
+    </div>
+    <div>
+        <label for="descuentoPrecio">Descuento:</label>
+        <input type="number" id="descuentoPrecio" th:field="*{descuentoPrecio}">
+    </div>
+    <div>
+        <label for="categoria">Categoría:</label>
+        <select id="categoria" th:field="*{categoria}">
+            <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
+        </select>
+    </div>
+    <div>
+        <label for="imagenes">Imágenes:</label>
+        <input type="file" id="imagenes" name="imagenes" onchange="validarNumeroDeArchivos(this, 5)" multiple>
+    </div>
+    <div>
+        <button type="submit">Crear Artículo</button>
+    </div>
+</form>
+</body>
+</html>

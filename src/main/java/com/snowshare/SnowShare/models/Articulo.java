@@ -10,33 +10,34 @@ public class Articulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idArticulo")
+    @Column(name = "id_articulo")
     private Integer idArticulo;
 
-    @Column(name = "nombre")
-    private String nombre;
+    @Column(name = "titulo")
+    private String titulo;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "marca")
-    private String marca;
+    @Column(name = "codigoPostal")
+    private Integer codigoPostal;
 
-    @Column(name = "modelo")
-    private String modelo;
+    @Column(name = "precioDia")
+    private BigDecimal precioDia;
 
-    @Column(name = "precio")
-    private BigDecimal precio;
+    @Column(name = "diasMinimo")
+    private Integer diasMinimo;
 
-    @Column(name = "imagen")
-    private String imagen;
+    @Column(name = "descuentoPrecio")
+    private Integer descuentoPrecio;
 
     @ManyToOne
-    @JoinColumn(name = "idPropietario", referencedColumnName = "IdUsuario")
+    @JoinColumn(name = "id_propietario", referencedColumnName = "Id_usuario")
     private Usuario propietario;
 
-    @OneToMany(mappedBy = "articulo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Resena> resenas;
+    @ManyToOne
+    @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
+    private Categoria categoria;
 
     public Integer getIdArticulo() {
         return idArticulo;
@@ -46,12 +47,12 @@ public class Articulo {
         this.idArticulo = idArticulo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getDescripcion() {
@@ -62,37 +63,36 @@ public class Articulo {
         this.descripcion = descripcion;
     }
 
-    public String getMarca() {
-        return marca;
+    public Integer getCodigoPostal() {
+        return codigoPostal;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setCodigoPostal(Integer codigoPostal) {
+        this.codigoPostal = codigoPostal;
     }
 
-    public String getModelo() {
-        return modelo;
+    public BigDecimal getPrecioDia() {
+        return precioDia;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setPrecioDia(BigDecimal precioDia) {
+        this.precioDia = precioDia;
     }
 
-    public BigDecimal getPrecio() {
-        return precio;
+    public Integer getDiasMinimo() {
+        return diasMinimo;
     }
 
-    //didac
-    public void setPrecio(BigDecimal precio) {
-        this.precio = precio;
+    public void setDiasMinimo(Integer diasMinimo) {
+        this.diasMinimo = diasMinimo;
     }
 
-    public String getImagen() {
-        return imagen;
+    public Integer getDescuentoPrecio() {
+        return descuentoPrecio;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setDescuentoPrecio(Integer descuentoPrecio) {
+        this.descuentoPrecio = descuentoPrecio;
     }
 
     public Usuario getPropietario() {
@@ -103,13 +103,11 @@ public class Articulo {
         this.propietario = propietario;
     }
 
-    public Set<Resena> getResenas() {
-        return resenas;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setResenas(Set<Resena> resenas) {
-        this.resenas = resenas;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
-
-
 }

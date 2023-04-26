@@ -11,7 +11,7 @@ public class Pago {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idPago")
+    @Column(name = "id_pago")
     private Integer idPago;
 
     @Column(name = "cantidad")
@@ -24,10 +24,10 @@ public class Pago {
     private String estatus;
 
     @ManyToOne
-    @JoinColumn(name = "idReserva", referencedColumnName = "idReserva")
+    @JoinColumn(name = "id_reserva", referencedColumnName = "id_reserva")
     private Reserva reserva;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 }

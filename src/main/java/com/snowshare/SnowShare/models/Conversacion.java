@@ -10,7 +10,7 @@ public class Conversacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idConversacion")
+    @Column(name = "id_conversacion")
     private Integer idConversacion;
 
     @Column(name = "mensaje")
@@ -20,14 +20,14 @@ public class Conversacion {
     private LocalDateTime fechaHora;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "idPropietario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "id_propietario", referencedColumnName = "id_usuario")
     private Usuario propietario;
 
     @ManyToOne
-    @JoinColumn(name = "idArticulo", referencedColumnName = "idArticulo")
+    @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
     private Articulo articulo;
 }

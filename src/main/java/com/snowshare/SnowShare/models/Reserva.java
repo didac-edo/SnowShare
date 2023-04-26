@@ -9,7 +9,7 @@ public class Reserva {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idReserva")
+    @Column(name = "id_reserva")
     private Integer idReserva;
 
     @Column(name = "fechaInicio")
@@ -22,12 +22,11 @@ public class Reserva {
     private String estatus;
 
     @ManyToOne
-    @JoinColumn(name = "idArticulo", referencedColumnName = "idArticulo")
+    @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
     private Articulo articulo;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
-
-
+    
 }

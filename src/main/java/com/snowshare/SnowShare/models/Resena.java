@@ -8,7 +8,7 @@ public class Resena {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idComentario")
+    @Column(name = "id_comentario")
     private Integer idComentario;
 
     @Column(name = "comentario")
@@ -18,11 +18,11 @@ public class Resena {
     private Integer calificacion;
 
     @ManyToOne
-    @JoinColumn(name = "idArticulo", referencedColumnName = "idArticulo")
+    @JoinColumn(name = "id_articulo", referencedColumnName = "id_articulo")
     private Articulo articulo;
 
     @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 
 }
