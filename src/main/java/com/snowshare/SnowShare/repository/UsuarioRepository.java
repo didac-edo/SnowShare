@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Usuario findByCorreoElectronico(String correoElectronico);
 
-    @Query("SELECT u FROM Usuario u WHERE u.nombre = :nombreUsuario")
     Usuario findByNombre(String nombre);
+
 }

@@ -7,31 +7,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .articulo {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function redirectToArticle(id) {
+            window.location.href = "/articulos/" + id;
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <h1>Todos los artículos</h1>
     <div class="row">
         <div th:each="articulo : ${articulos}" class="col-md-4">
-            <div class="articulo">
-                <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide" data-ride="carousel">
+            <div class="articulo" th:onclick="'redirectToArticle(' + ${articulo.idArticulo} + ');'">
+                <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
                             <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}">
                         </div>
                     </div>
-                    <th:block th:if="${#lists.size(imagenesPorArticulo[articulo.idArticulo])} > 1">
-                        <a class="carousel-control-prev" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </th:block>
                 </div>
-                <h3 th:text="${articulo.titulo}"></h3>
+                <h3 th:if="${articulo.propietario.idUsuario} != ${usuarioActual.idUsuario}" th:text="${articulo.titulo}"></h3>
             </div>
         </div>
     </div>
