@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="chat-button-container">
-                <button type="button" class="btn btn-primary" id="chatButton">Chatear</button>
+                <a th:href="@{/chat/{idArticulo}(idArticulo=${articulo.idArticulo})}" class="btn btn-primary" role="button">Chatear</a>
             </div>
 
         </div>

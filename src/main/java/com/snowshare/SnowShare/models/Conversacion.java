@@ -1,8 +1,11 @@
 package com.snowshare.SnowShare.models;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "conversacion")
