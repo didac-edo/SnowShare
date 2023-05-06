@@ -9,5 +9,17 @@
     <h1>Bienvenido, <span th:text="${nombreUsuario}"></span>!</h1>
     <img th:src="'data:image/png;base64,' + ${rutaImagenPerfil}" alt="Imagen de perfil">
 
+    <h2>Chats</h2>
+    <!--div th:each="entry : ${usuariosYArticulosConChats}">
+        <button type="button" th:onclick="'window.location.href=\'/chat/' + ${entry.value.idArticulo} + '\''">
+            <span th:text="${entry.key.nombre} + ' - ' + ${entry.value.titulo}"></span>
+        </button>
+    </div-->
+    <div th:each="chatInfo : ${chats}">
+        <button type="button" th:onclick="'window.location.href=\'/chat/' + ${chatInfo.articulo.idArticulo} + '\''">
+            <span th:text="${chatInfo.usuario.nombre} + ' - ' + ${chatInfo.articulo.titulo}"></span>
+        </button>
+    </div>
+
 </body>
 </html>
