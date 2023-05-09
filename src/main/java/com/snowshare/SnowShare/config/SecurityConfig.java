@@ -41,27 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/usuarios", "/styles.css", "/main.js", "/chat-websocket/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/bienvenida")
-                .and()
-                .logout().permitAll();
-    }*/
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/", "/usuarios", "/styles.css", "/main.js", "/chat-websocket/**").permitAll()
+                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/bienvenida")
+                .formLogin()
+                .loginPage("/iniciar-registrar-sesion").permitAll()
+                .defaultSuccessUrl("/index") // Agrega 'true' para siempre redirigir a esta URL
                 .and()
                 .logout().permitAll();
     }
