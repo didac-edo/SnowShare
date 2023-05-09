@@ -1,0 +1,256 @@
+body{
+    width: auto;
+}
+.contenedor {
+    width: 100%;
+    height: auto;
+
+}
+
+.contenedor1 {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.sector1 {
+    margin: 0 auto;
+    width: 1200px;
+    margin-bottom: 24px;
+    min-width: 1200px;
+    min-height: 250px;
+    border-radius: 0px 0px 8px 8px;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.encabezado {
+    object-fit: cover;
+}
+
+.clase1 {
+    position: relative;
+    width: 188px;
+    margin-bottom: 8px;
+    margin-top: -125px;
+    margin-left: 200px;
+    height: 188px;
+    max-width: 188px;
+    max-height: 188px;
+}
+
+.clase2 {
+    width: 188px;
+    border: 4px solid white;
+    border-radius: 180px;
+    height: 188px;
+    max-width: 188px;
+    max-height: 188px;
+}
+
+.clase3 {
+    width: 180px;
+    min-width: 180px;
+    min-height: 180px;
+    border-radius: 180px;
+    height: 180px;
+    max-width: 180px;
+    max-height: 180px;
+    margin-bottom: 13px;
+    overflow: hidden;
+    width: auto;
+    cursor: pointer;
+}
+
+.clase4 {
+    object-fit: cover;
+    max-width: 180px;
+    max-height: 180px;
+    background-color: rgb(149, 196, 237);
+}
+
+.clase5 {
+    width: 100%;
+    margin-bottom: 30px;
+    padding-left: 500px;
+    margin-top: -30px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.clase6 {
+    margin-top: 0px;
+    margin-right: 32px;
+    font-family: MuseoSans, Helvetica;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 40px;
+}
+
+.clase7 {
+    width: auto;
+    height: 32px;
+    display: flex;
+
+}
+
+.clase8 {
+    width: 100%;
+    margin-bottom: 32px;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.clase9 {
+    width: 100%;
+    display: flex;
+    border-radius: 40px;
+    height: 56px;
+    border: 1px solid rgb(245, 245, 245);
+    padding: 4px;
+    width: auto;
+}
+
+.clase10 {
+    width: 100%;
+    color: white;
+    background-color: rgb(37, 172, 159);
+    min-width: 50%;
+}
+
+.clase11 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: fit-content;
+    transition: background-color 300ms ease 0s;
+    cursor: pointer;
+}
+
+.clase12 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    white-space: nowrap;
+    color: rgb(255, 255, 255);
+    font-family: MuseoSans, Helvetica;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.clase13 {
+    width: 100%;
+    background-color: transparent;
+    min-width: 50%;
+    color: copyTwo;
+}
+
+.clase14 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    white-space: nowrap;
+    color: rgb(118, 118, 118);
+    font-family: MuseoSans, Helvetica;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+.clase15 {
+    width: 1200px;
+    height: auto;
+    border-top: 2px solid rgb(37, 172, 159);
+    margin-left: 160px;
+    margin-bottom: 20px;
+    padding: 5%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.clase16 {
+
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 1%;
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.clase17 {
+
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    gap: 1%;
+    background-color: #f0f0f0;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.imagen {
+    max-width: 100%;
+    margin-bottom: 20px;
+    width: 90%;
+    height: 50%;
+    border-radius: 10px;
+    border: 1px solid #000;
+}
+
+h3,
+h5 {
+    margin: 0;
+    padding: 10px 0;
+    border: 1px solid #000;
+}
+
+.parrafo {
+    margin: 0;
+    padding: 0 0 20px 0;
+    border: 1px solid #000;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
