@@ -10,6 +10,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
@@ -22,14 +28,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.customUserDetailsService = customUserDetailsService;
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/usuarios", "/styles.css", "/main.js").permitAll()
+        http.cors().and()
+                .authorizeRequests()
+                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/bienvenida")
+                .formLogin()
+                .loginPage("/iniciar-registrar-sesion").permitAll()
+                .defaultSuccessUrl("/index") // Agrega 'true' para siempre redirigir a esta URL
                 .and()
                 .logout().permitAll();
     }

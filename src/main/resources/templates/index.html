@@ -1,24 +1,312 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Aplicación con Spring Boot</title>
-    <!-- Incluye tu archivo CSS personalizado -->
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/estilos.css">
+  <link rel="stylesheet" href="/css/home.css">
+  <script src="/js/index.js"></script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Incluye tu archivo JavaScript personalizado -->
-    <script th:src="@{/main.js}"></script>
+  <title>SnowShare</title>
 </head>
+
 <body>
-<div class="container">
-    <h1>Aplicación con Spring Boot</h1>
+  <nav class="navegador">
+    <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
+      <i class="fas fa-bars"></i>
+    </label>
+    <ul class="menuDesplegable" id="menuDesplegable">
+      <li>Como funciona</li>
+      <li>Publicar un artículo</li>
+    </ul>
+    <a href="/index" class="enlace">
+      <img src="/imagenes/logo.png" alt="" class="logo">
+    </a>
+    <ul>
+      <li><a href="/como-funciona">Como funciona</a></li>
+      <li><a href="publicar-articulo">Publicar artículo</a></li>
+      <li><a href="listado-articulos">Articulos</a></li>
+      <li><a href="perfil">Perfil</a></li>
+      <li><a href="iniciar-registrar-sesion">Log out</a></li>
+    </ul>
+  </nav>
 
-    <!-- Botón de inicio de sesión -->
-    <button onclick="window.location.href='/login'">Iniciar sesión</button>
+  <div class="home">
+    <div class="sector1">
+      <div class="titular">
+        <div class="titulo">
+          <h1 class="titulo-h1">Alquilar cualquier articulo</h1>
+          <h1 class="titulo-h1">para la nieve</h1>
+          <h1 class="titulo-h1">de personas en tu area</h1>
+        </div>
+        <div class="subtitulo">
+          <p> Toma prestado casi cualquier cosa
+            de personas cercanas para trabajos en el hogar,
+            experiencias divertidas o trabajo.</p>
+        </div>
+        <div class="container">
+          <div class="search-container">
+            <form action="#" method="get" class="search-form">
+              <input type="text" class="search-input" name="search" placeholder="Buscar artículos...">
+              <button type="submit" class="search-button">Buscar</button>
+            </form>
+          </div>
+        </div>
+        <div class="publicar">
+          O
+          <button onclick="window.location.href='publicar-articulo'" class="publish-button">Publicar un artículo</button>
+        </div>
 
-    <!-- Botón de registro -->
-    <button onclick="window.location.href='/usuarios'">Registrarse</button>
+      </div>
+    </div>
+    <div class="sector2">
+      <div class="clase1 clase2">
+        <div class="clase3">
+          <div class="clase4 clase2">
+            <div class="clase5">
+              <div class="estrella"></div>
+            </div>
+            <p class="clase7 clase8">
+              Acceder a más
+            </p>
+            <p class="clase9">
+              Perseguir pasiones.
+              Terminar las cosas.
+            </p>
+          </div>
+          <div class="clase4 clase2">
+            <div class="clase5">
+              <div class="clase56">
+                <div class="moneda"></div>
+              </div>
+            </div>
+            <p class="clase7 clase8">
+              Ahorrar dinero
+            </p>
+            <p class="clase9">
+              Compra menos.
+              Alquiler por una fracción del costo.
+            </p>
+          </div>
+          <div class="clase4 clase2">
+            <div class="clase5">
+              <div class="clase56">
+                <div class="hoja"></div>
+              </div>
+            </div>
+            <p class="clase7 clase8">
+              Ayuda al planeta
+            </p>
+            <p class="clase9">
+              Vive más ligero.
+              Reducir gasto.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sector3">
+      <div class="clasector01">
+        <h3 class="clasector1">
+          <p>Explora nuestras categorías</p>
+        </h3>
+        <div class="clasector2">
+          <a>
+            <div class="clasector3">
+              <div>
+                <div class="clasector34">
+                  <div class="clasector7">
+                    <div class="esquis" alt="Esquis"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="clasector4">
+                <p class="clasector5">
+                  Esquis
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
 
-</div>
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="snowboard" alt="Snowboard"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Snowboard
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="trineo" alt="Trineo"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Trineo
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="palos" alt="Palos"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Palos de Esquis
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="botas" alt="Botas"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Botas de nieve
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="casco" alt="Casco"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Casco
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="gafas" alt="Gafas"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Gafas
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="guantes" alt="Guantes"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Guantes
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="mochila" alt="Mochila"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Mochila
+                </p>
+              </div>
+            </div>
+          </a>
+          <a href="#">
+            <div class="clasector3">
+
+              <div class="clasector34">
+                <div class="clasector7">
+                  <div class="crampones" alt="Crampones"></div>
+                </div>
+              </div>
+
+              <div class="clasector4">
+                <p class="clasector5">
+                  Crampones
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sector4">
+      <div class="sector41">
+        <h2 color="white" class="sector42">
+          Reseñas de alquileres recientes
+        </h2>
+      </div>
+      <div class="sector43">
+        <div class="sectro44">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- contenedor footer -->
+  <footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+      <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+      <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+      <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+    </div>
+  </footer>
+
+
 </body>
+
 </html>

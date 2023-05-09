@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/estilos.css" type="text/css">
+    <link rel="stylesheet" href="/css/publicar-articulo.css" type="text/css">
+    <script src="/js/index.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <title>SnowShare</title>
+    <script>
+        let imagenSeleccionada = 0;
+
+        function seleccionarImagen(numero) {
+            imagenSeleccionada = numero;
+            document.getElementById("selector-imagenes").click();
+        }
+
+        function cargarImagen(event) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.querySelector(`.imagen-seleccionada:nth-child(${imagenSeleccionada})`).src = e.target.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        document.getElementById("selector-imagenes").addEventListener("change", cargarImagen);
+
+    </script>
+</head>
+
+<body>
+    <nav class="navegador">
+        <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </label>
+        <ul class="menuDesplegable" id="menuDesplegable">
+            <li>Como funciona</li>
+            <li>Publicar un artículo</li>
+        </ul>
+        <a href="/index" class="enlace">
+            <img src="/imagenes/logo.png" alt="" class="logo">
+        </a>
+        <ul>
+            <li><a href="/como-funciona">Como funciona</a></li>
+            <li><a href="publicar-articulo">Publicar artículo</a></li>
+            <li><a href="listado-articulos">Articulos</a></li>
+            <li><a href="iniciar-registrar-sesion">Log out</a></li>
+        </ul>
+    </nav>
+
+    <div id="page" class="class1">
+        <div class="class2">
+            <div class="class3">
+                <h1 class="class4">
+                    Agregar articulo    
+                </h1>
+                <div class="class5">
+                    <form action="#" th:action="@{/publicar-articulo}" th:object="${articulo}" method="post" enctype="multipart/form-data" class="class6">
+                        <div class="class7">
+                            <p class="class8">Comparte tus imagenes</p>
+                            <div class="class9">
+                                <img src="/imagenes/camera.svg" alt="Imagen 1" class="imagen-seleccionada" onclick="seleccionarImagen(1)">
+                                <img src="/imagenes/camera.svg" alt="Imagen 2" class="imagen-seleccionada" onclick="seleccionarImagen(2)">
+                                <img src="/imagenes/camera.svg" alt="Imagen 3" class="imagen-seleccionada" onclick="seleccionarImagen(3)">
+                                <img src="/imagenes/camera.svg" alt="Imagen 4" class="imagen-seleccionada" onclick="seleccionarImagen(4)">
+                                <input type="file" id="selector-imagenes" name="imagenes" style="display:none" onchange="cargarImagen(event)">
+                            </div>
+                            <div class="class12">
+                                <p class="class13">Imagen de portada</p>
+                                <p class="class14">
+                                    Haga clic para reordenar, recortar o
+                                    agregar fotos
+                                </p>
+                            </div>
+                            <div class="class15">
+                                <div width="100%" class="class16" name="itemName">
+                                    <p class="class17">
+                                        Titulo del listado
+                                    </p>
+                                    <div class="class18">
+                                        <input type="text" id="titulo" th:field="*{titulo}" required placeholder="Título 40 caracteres máx." class="class19">
+                                    </div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                            <div class="class15">
+                                <div class="class21">
+                                    <div width="100%" class="class16" placeholder="selecciona una categoría">
+                                        <p class="class17">
+                                            Categoría
+                                        </p>
+                                        <div class="class18">
+                                            <select id="categoria" th:field="*{categoria}">
+                                                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="class20"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="class15">
+                                <div height="224px" width="100%" class="class22" name="description">
+                                    <p class="class17">
+                                        Descripción
+                                    </p>
+                                    <textarea class="class23" rows="6" height="224px" wrap="soft" type="text" id="descripcion" th:field="*{descripcion}" required label="Description"></textarea>
+                                </div>
+                            </div>
+                            <div class="class15">
+                                <div width="auto" class="class24">
+                                    <div width="100%" class="class16" name="postalCode">
+                                        <p class="class17">
+                                            Código postal
+                                        </p>
+                                        <div class="class18">
+                                            <input name="postalCode" type="text" id="codigoPostal" th:field="*{codigoPostal}" autocomplete="postal-code" class="class19">
+                                        </div>
+                                        <div class="class20"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="class15">
+                                <p class="class17">
+                                    Precio de alquiler (€) por:
+                                </p>
+                                <div class="class25">
+                                    <div width="100%" class="class16" name="price">
+                                        <p class="class17">
+                                            Día
+                                        </p>
+                                        <div class="class18">
+                                            <input name="price" type="number" id="precioDia" step="0.01" th:field="*{precioDia}" class="class19">
+                                        </div>
+                                        <div class="class20"></div>
+                                    </div>
+                                </div>
+                                <p class="class26"></p>
+                            </div>
+                            <div class="class27">
+                                <div width="100%" class="class16" name="estimatedValue">
+                                    <p class="class17">
+                                        Descuento
+                                    </p>
+                                    <div class="class18">
+                                        <input name="estimatedValue" type="number" id="descuentoPrecio" th:field="*{descuentoPrecio}" class="class19">
+                                    </div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                            <div class="class29">
+                                <div width="100%" class="class16" name="minRentalDays">
+                                    <p class="class17">
+                                        Días mínimos de alquiler
+                                    </p>
+                                    <div class="class18">
+                                        <input name="minRentalDays" type="number" id="diasMinimo" th:field="*{diasMinimo}" class="class19">
+                                    </div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                            <div class="class32">
+                                <button width="239px" label="Cancel" class="class33">
+                                    <div class="class34">
+                                        <div class="class35">
+                                            Cancelar
+                                        </div>
+                                    </div>
+                                </button>
+                                <button width="239px" type="submit" label="List new item" class="class36">
+                                    <div class="class34">
+                                        <div class="class35">
+                                            Crear Artículo
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <button>Inicio sesión</button>
+        <button>Política de privacidad</button>
+        <button>Términos y condiciones</button>
+        <button>Preguntas frecuentes</button>
+        <button>¿Cómo funciona?</button>
+        <div class="iconos">
+            <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+            <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+            <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

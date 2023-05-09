@@ -28,4 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(usuario.getCorreoElectronico(), usuario.getContraseña(),
                 new ArrayList<>());
     }
+
+    public Usuario findByNombre(String nombre) {
+        return usuarioRepository.findByNombre(nombre);
+    }
 }
