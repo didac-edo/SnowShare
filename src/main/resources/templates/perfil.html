@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     <script src="/js/index.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <meta name="csrf-token" th:content="${_csrf.token}" />
 
     <title>SnowShare</title>
 </head>
@@ -45,18 +46,20 @@
             </div>
             <div class="clase1">
                 <div class="clase2">
-                    <div class="clase3" onclick="cambiarFotoPerfil()">
-                        <img alt="imagen de perfil" src="/imagenes/fotoperfil.png" class="clase4">
-                    </div>                    
+                    <div class="clase3" id="cambiarFotoPerfil">
+                        <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/imagenes/camera.svg'" alt="Foto de perfil" class="imagen-seleccionada" onclick="seleccionarImagen()">
+                        <input type="file" id="selector-imagenes" name="fotoPerfil" style="display:none" onchange="cargarImagen(event)">
+                    </div>
                 </div>
             </div>
-            <div class="clase5">
-                <h1 id="nombre" class="clase6">
+            <form class="clase5" action="/actualizarNombre" method="POST">
+                <h1 id="nombre" class="clase6" th:text="${nombreUsuario}" readonly>
                     Nombre Completo
                 </h1>
                 <img id="editar" src="/imagenes/lapiz.svg" alt="lapiz">
+                <button type="submit" id="guardar" style="display:none;">Guardar</button>
                 <div class="clase7"></div>
-            </div>
+            </form>
             <div class="clase8">
                 <div class="clase9">
                     <div id="opcion1" class="clase10 clase11">
@@ -73,20 +76,12 @@
             </div>
             <div class="clase7"></div>
             <div class="clase15">
-                <div class="clase16">
-                    <img src="/imagenes/camera.svg" alt="articulo" class="imagen">
-                    <h3>Nombre Articulo</h3>
-                    <p class="parrafo">Descripcion Articulo</p>
-                    <h5>Nombre Propietario</h5>
-                    <p class="parrafo">Fecha</p>
-                </div>
-                <div class="clase17">
-                    <img src="/imagenes/camera.svg" alt="articulo" class="imagen">
-                    <h3>Nombre Articulo</h3>
-                    <p class="parrafo">Descripcion Articulo</p>
+                <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase16">
+                    <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
+                    <h3 th:text="${imagenArticulo.articulo.titulo}">Nombre Articulo</h3>
+                    <p class="parrafo" th:text="${imagenArticulo.articulo.descripcion}">Descripcion Articulo</p>
                     <button>editar</button>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -105,7 +100,19 @@
         </div>
     </footer>
 
-    <script src="/js/perfil.js"></script>
+    <script src="/js/perfilNew.js"></script>
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+    var imagenesBase64 = /*[[${imagenesBase64}]]*/ [];
+    imagenesBase64.forEach(function(imagenBase64, index) {
+        var imagenElement = document.getElementById("imagen-" + (index + 1));
+        if (imagenElement) {
+            imagenElement.src = "data:image/png;base64, " + imagenBase64;
+        }
+    });
+    /*]]>*/
+</script>
+
 </body>
 
 </html>

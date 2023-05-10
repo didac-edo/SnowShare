@@ -67,7 +67,7 @@ body{
     cursor: pointer;
 }
 
-.clase4 {
+.imagen-seleccionada {
     object-fit: cover;
     max-width: 180px;
     max-height: 180px;
