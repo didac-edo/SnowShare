@@ -3,6 +3,7 @@ package com.snowshare.SnowShare.controller;
 import com.snowshare.SnowShare.models.Articulo;
 import com.snowshare.SnowShare.models.ImagenArticulo;
 import com.snowshare.SnowShare.models.Usuario;
+import com.snowshare.SnowShare.repository.ArticuloRepository;
 import com.snowshare.SnowShare.repository.ImagenArticuloRepository;
 import com.snowshare.SnowShare.repository.UsuarioRepository;
 import com.snowshare.SnowShare.service.UsuarioService;
@@ -18,11 +19,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+
 import java.io.IOException;
 
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +34,9 @@ public class PerfilController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ArticuloRepository articuloRepository;
 
     @Autowired
     private ImagenArticuloRepository imagenArticuloRepository;
@@ -83,6 +86,26 @@ public class PerfilController {
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_JPEG).body(fotoPerfil.getBytes());
     }
 
+    @PostMapping("/eliminarArticulo")
+    public String eliminiarArticulo(@RequestParam("articuloId") Integer articuloId) {
+        System.out.println("Eliminar artículo llamado con ID: " + articuloId);
 
+        Articulo articulo = articuloRepository.findById(articuloId).orElse(null);
+
+        if (articulo != null) {
+            System.out.println("Encontrado articulo con ID: " + articulo.getIdArticulo());
+
+            List<ImagenArticulo> imagenesArticulo = imagenArticuloRepository.findByArticuloIdArticulo(articulo.getIdArticulo());
+
+            imagenArticuloRepository.deleteInBatch(imagenesArticulo);
+
+            articuloRepository.deleteById(articulo.getIdArticulo());
+
+            System.out.println("Articulo eliminado con ID: " + articulo.getIdArticulo());
+        } else {
+            System.out.println("No se encontró ImagenArticulo con ID: " + articuloId);
+        }
+        return "redirect:/perfil";
+    }
 
 }

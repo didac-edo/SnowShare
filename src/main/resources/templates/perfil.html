@@ -80,7 +80,16 @@
                     <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
                     <h3 th:text="${imagenArticulo.articulo.titulo}">Nombre Articulo</h3>
                     <p class="parrafo" th:text="${imagenArticulo.articulo.descripcion}">Descripcion Articulo</p>
-                    <button>editar</button>
+
+                    <a th:href="@{/articulos/{idArticulo}/editar(idArticulo=${imagenArticulo.articulo.idArticulo})}" class="btn btn-primary">
+                        Editar
+                    </a>
+
+
+                    <form th:action="@{/eliminarArticulo}" method="post">
+                        <input type="hidden" th:value="${imagenArticulo.articulo.idArticulo}" name="articuloId"/>
+                        <button type="submit">eliminar</button>
+                    </form>
                 </div>
             </div>
         </div>

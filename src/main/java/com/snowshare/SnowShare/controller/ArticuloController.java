@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -188,5 +189,41 @@ public class ArticuloController {
         redirectAttributes.addFlashAttribute("success", "Comentario enviado con éxito");
         return "redirect:/listado-articulos/" + idArticulo;
     }
+
+    @GetMapping("/articulos/{idArticulo}/editar")
+    public String mostrarEditarArticulo(@PathVariable("idArticulo") Integer idArticulo, BindingResult result, Model model) {
+
+        Articulo articulo = articuloRepository.getById(idArticulo);
+        model.addAttribute("articulo", articulo);
+
+        return "editar-articulo";
+    }
+
+    @PostMapping("/articulos/{idArticulo}/editar")
+    public String editarArticulo(@PathVariable("idArticulo") Integer idArticulo, @ModelAttribute("articulo") Articulo articulo, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "detalle-articulo";
+        }
+
+        //Articulo articulo = articuloRepository.getById(idArticulo);
+
+
+        // Actualiza el artículo en la base de datos
+        // ...
+        /*
+        @PostMapping("/actualizarNombre")
+    public ResponseEntity<Void> actualizarNombre(@RequestBody Map<String, String> body) {
+        String nombre = body.get("nombre");
+        System.out.println("El nombre ha actualizar es: " + nombre);
+        usuarioService.actualizarNombre(nombre);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+         */
+
+
+
+        return "redirect:/articulos/" + idArticulo;
+    }
+
 
 }

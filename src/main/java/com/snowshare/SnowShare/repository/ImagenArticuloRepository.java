@@ -15,5 +15,10 @@ public interface ImagenArticuloRepository extends JpaRepository<ImagenArticulo, 
 
     @Query("SELECT ia FROM ImagenArticulo ia WHERE ia.articulo.propietario.idUsuario = :userId AND ia.idImagenArticulo IN (SELECT MIN(i.idImagenArticulo) FROM ImagenArticulo i GROUP BY i.articulo.idArticulo)")
     List<ImagenArticulo> findFirstImagesByUser(@Param("userId") Integer userId);
+
+    void deleteByArticuloIdArticulo(Integer articuloId);
+
+    List<ImagenArticulo> findByArticuloIdArticulo(Integer IdArticulo);
+
 }
 
