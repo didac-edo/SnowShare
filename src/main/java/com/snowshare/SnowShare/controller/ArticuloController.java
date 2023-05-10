@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -187,6 +188,35 @@ public class ArticuloController {
 
         redirectAttributes.addFlashAttribute("success", "Comentario enviado con éxito");
         return "redirect:/listado-articulos/" + idArticulo;
+    }
+
+    @GetMapping("/articulos/{idArticulo}/editar")
+    public String mostrarEditarArticulo(@PathVariable("idArticulo") Integer idArticulo, Model model) {
+
+        Articulo articulo = articuloRepository.getById(idArticulo);
+
+        model.addAttribute("articulo", articulo);
+
+        return "editar_articulo";
+    }
+
+    @PostMapping("/articulos/{idArticulo}/editar")
+    public String editarArticulo(@PathVariable("idArticulo") Integer idArticulo, @ModelAttribute("articulo") Articulo articulo, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "editar_articulo";
+        }
+
+        Articulo articuloExistente = articuloRepository.getById(idArticulo);
+        articuloExistente.setTitulo(articulo.getTitulo());
+        articuloExistente.setDescripcion(articulo.getDescripcion());
+        articuloExistente.setCodigoPostal(articulo.getCodigoPostal());
+        articuloExistente.setPrecioDia(articulo.getPrecioDia());
+        articuloExistente.setDiasMinimo(articulo.getDiasMinimo());
+        articuloExistente.setDescuentoPrecio(articulo.getDescuentoPrecio());
+
+        articuloRepository.save(articuloExistente);
+
+        return "redirect:/perfil";
     }
 
 }
