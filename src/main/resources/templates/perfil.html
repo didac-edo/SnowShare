@@ -85,13 +85,13 @@
                         Editar
                     </a>
 
-
                     <form th:action="@{/eliminarArticulo}" method="post">
                         <input type="hidden" th:value="${imagenArticulo.articulo.idArticulo}" name="articuloId"/>
-                        <button type="submit">eliminar</button>
+                        <button type="submit"> Eliminar </button>
                     </form>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -114,7 +114,7 @@
     /*<![CDATA[*/
     var imagenesBase64 = /*[[${imagenesBase64}]]*/ [];
     imagenesBase64.forEach(function(imagenBase64, index) {
-        var imagenElement = document.getElementById("imagen-" + (index + 1));
+        var imagenElement = document.getElementById("imagen-" + (index));
         if (imagenElement) {
             imagenElement.src = "data:image/png;base64, " + imagenBase64;
         }

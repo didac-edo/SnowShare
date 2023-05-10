@@ -41,41 +41,38 @@
     </nav>
 
     <div class="container">
-        <h1>Detalle del artículo</h1>
-        <div class="row">
-            <div class="col-md-12">
-                <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
-                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}">
-                        </div>
+        <h1>Editar artículo</h1>
+        <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="titulo">Título:</label>
+                        <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
                     </div>
-                    <th:block th:if="${#lists.size(imagenesPorArticulo[articulo.idArticulo])} > 1">
-                        <a class="carousel-control-prev" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </th:block>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="codigoPostal">Ubicación:</label>
+                        <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="precioDia">Precio dia:</label>
+                        <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="diasMinimo">Dias minimo:</label>
+                        <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="descuentoPrecio">Descuento precio:</label>
+                        <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="titulo">Título:</label>
-                    <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
-                </div>
-                <div class="form-group">
-                    <label for="descripcion">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="codigoPostal">Ubicación:</label>
-                    <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
-                </div>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
             </div>
-            <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
+        </form>
     </div>
     <footer>
         <button>Inicio sesión</button>

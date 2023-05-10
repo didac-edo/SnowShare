@@ -185,8 +185,8 @@ body{
 
 .clase16 {
 
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -202,8 +202,8 @@ body{
 
 .clase17 {
 
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -221,7 +221,7 @@ body{
 
 .imagen {
     max-width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 90%;
     height: 50%;
     border-radius: 10px;

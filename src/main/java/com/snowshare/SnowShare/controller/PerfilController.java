@@ -54,20 +54,12 @@ public class PerfilController {
                 .collect(Collectors.toList());
         model.addAttribute("imagenesBase64", imagenesBase64);
 
-        System.out.println("El nombreUsuario actual es: " + usuarioActual.getNombre());
-
-        for (ImagenArticulo imagenArticulo : primerasImagenes) {
-            System.out.println("Imagen base64: " + Base64.getEncoder().encodeToString(imagenArticulo.getImagen()));
-        }
-
         model.addAttribute("primerasImagenes", primerasImagenes);
         model.addAttribute("nombreUsuario", usuarioActual.getNombre());
         byte[] fotoPerfil = usuarioActual.getFotoPerfil();
         if (fotoPerfil != null) {
             String fotoPerfilBase64 = Base64.getEncoder().encodeToString(fotoPerfil);
             model.addAttribute("fotoPerfilBase64", fotoPerfilBase64);
-            System.out.println("FotoPerfil: " + fotoPerfilBase64);
-
         }
         return "perfil";
     }

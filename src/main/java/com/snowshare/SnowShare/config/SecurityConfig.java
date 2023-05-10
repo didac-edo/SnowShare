@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**").permitAll()
+                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**", "/como-funciona").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
