@@ -52,16 +52,4 @@ $(document).ready(function() {
     initMap();
 });
 
-$('#calendar').fullCalendar({
-    header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month'
-    },
-    defaultDate: moment().format('YYYY-MM-DD'),
-    navLinks: true, // can click day/week names to navigate views
-    selectable: true,
-    selectHelper: true,
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-});
+

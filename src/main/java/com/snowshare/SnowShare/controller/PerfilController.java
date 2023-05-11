@@ -2,9 +2,11 @@ package com.snowshare.SnowShare.controller;
 
 import com.snowshare.SnowShare.models.Articulo;
 import com.snowshare.SnowShare.models.ImagenArticulo;
+import com.snowshare.SnowShare.models.Reserva;
 import com.snowshare.SnowShare.models.Usuario;
 import com.snowshare.SnowShare.repository.ArticuloRepository;
 import com.snowshare.SnowShare.repository.ImagenArticuloRepository;
+import com.snowshare.SnowShare.repository.ReservaRepository;
 import com.snowshare.SnowShare.repository.UsuarioRepository;
 import com.snowshare.SnowShare.service.UsuarioService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
@@ -41,11 +43,17 @@ public class PerfilController {
     @Autowired
     private ImagenArticuloRepository imagenArticuloRepository;
 
+    @Autowired
+    private ReservaRepository reservaRepository;
+
     @GetMapping("/perfil")
     public String mostrarPerfil(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String usernameEmail = userDetails.getUsername();
         Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
+
+        List<Reserva> reservas = reservaRepository.findByUsuarioIdUsuario(usuarioActual.getIdUsuario());
+        model.addAttribute("reservas", reservas);
 
         List<ImagenArticulo> primerasImagenes = imagenArticuloRepository.findFirstImagesByUser(usuarioActual.getIdUsuario());
 
@@ -96,6 +104,24 @@ public class PerfilController {
             System.out.println("Articulo eliminado con ID: " + articulo.getIdArticulo());
         } else {
             System.out.println("No se encontró ImagenArticulo con ID: " + articuloId);
+        }
+        return "redirect:/perfil";
+    }
+
+    @PostMapping("/eliminarReserva")
+    public String eliminiarReserva(@RequestParam("articuloId") Integer articuloId) {
+        System.out.println("Eliminar reserva llamado con ID: " + articuloId);
+
+        Reserva reserva = reservaRepository.findById(articuloId).orElse(null);
+
+        if (reserva != null) {
+            System.out.println("Encontrado reserva con ID: " + reserva.getIdReserva());
+
+            reservaRepository.deleteById(reserva.getIdReserva());
+
+            System.out.println("Reserva eliminado con ID: " + reserva.getIdReserva());
+        } else {
+            System.out.println("No se encontró articulo con ID: " + articuloId);
         }
         return "redirect:/perfil";
     }

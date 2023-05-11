@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/iniciar-registrar-sesion").permitAll()
-                .defaultSuccessUrl("/index") // Agrega 'true' para siempre redirigir a esta URL
+                .defaultSuccessUrl("/index")
                 .and()
                 .logout().permitAll();
     }

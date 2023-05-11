@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,9 @@ public class ArticuloController {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     @GetMapping("/publicar-articulo")
     public String mostrarFormularioCrearArticulo(Model model) {
@@ -218,5 +223,46 @@ public class ArticuloController {
 
         return "redirect:/perfil";
     }
+
+    @PostMapping("/listado-articulos/{idArticulo}/reservar")
+    public String reservarArticulo(@PathVariable("idArticulo") Integer idArticulo, @RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaFin") String fechaFin, Principal principal, RedirectAttributes redirectAttributes) {
+
+        Articulo articulo = articuloRepository.findById(idArticulo).orElseThrow(() -> new IllegalArgumentException("Artículo no encontrado"));
+
+        System.out.println("El articulo es :" + articulo.getIdArticulo());
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernameEmail = userDetails.getUsername();
+        Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
+
+        System.out.println("El usuario es :" + usuarioActual.getIdUsuario());
+        System.out.println("La fecha inicio es: " + fechaInicio);
+        System.out.println("La fecha fin es: " + fechaFin);
+
+        LocalDate inicio = LocalDate.parse(fechaInicio);
+        LocalDate fin = LocalDate.parse(fechaFin);
+
+        List<Reserva> overlappingReservations = reservaRepository.findOverlappingReservations(idArticulo, inicio, fin);
+
+        if (!overlappingReservations.isEmpty()) {
+            System.out.println("HA ENTRADO EN QUE YA HAY UNA RESERVA");
+            redirectAttributes.addFlashAttribute("error", "El artículo ya está reservado durante las fechas seleccionadas.");
+            return "redirect:/articulos/" + idArticulo;
+        }
+
+        Reserva reserva = new Reserva();
+        reserva.setFechaInicio(LocalDate.parse(fechaInicio));
+        reserva.setFechaFin(LocalDate.parse(fechaFin));
+        reserva.setArticulo(articulo);
+        reserva.setUsuario(usuarioActual);
+        reserva.setEstatus("Act");
+
+        reservaRepository.save(reserva);
+
+        redirectAttributes.addFlashAttribute("success", "Reserva realizada con exito");
+
+        return "redirect:/articulos/" + idArticulo;
+    }
+
 
 }

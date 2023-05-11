@@ -76,6 +76,15 @@
             </div>
             <div class="clase7"></div>
             <div class="clase15">
+                <div th:each="reserva : ${reservas}" class="clase17">
+                    <h3 th:text="${reserva.articulo.titulo}">Nombre Articulo</h3>
+                    <p class="parrafo" th:text="${reserva.fechaInicio}"> Fecha Inicio: </p>
+                    <p class="parrafo" th:text="${reserva.fechaFin}"> Fecha Fin: </p>
+                    <form th:action="@{/eliminarReserva}" method="post">
+                        <input type="hidden" th:value="${reserva.articulo.idArticulo}" name="articuloId"/>
+                        <button type="submit"> Eliminar </button>
+                    </form>
+                </div>
                 <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase16">
                     <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
                     <h3 th:text="${imagenArticulo.articulo.titulo}">Nombre Articulo</h3>
