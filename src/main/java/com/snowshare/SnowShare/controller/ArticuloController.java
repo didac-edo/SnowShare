@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -45,6 +47,9 @@ public class ArticuloController {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     @GetMapping("/publicar-articulo")
     public String mostrarFormularioCrearArticulo(Model model) {
@@ -93,7 +98,7 @@ public class ArticuloController {
         }
     }
 
-    @GetMapping("/listado-articulos")
+    /*@GetMapping("/listado-articulos")
     public String listarArticulos(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String usernameEmail = userDetails.getUsername();
@@ -134,7 +139,60 @@ public class ArticuloController {
         model.addAttribute("imagenesPorArticulo", imagenesPorArticulo);
 
         return "listado-articulos";
+    }*/
+
+    @GetMapping("/listado-articulos")
+    public String listarArticulos(Model model, @RequestParam(required = false) Integer categoria) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernameEmail = userDetails.getUsername();
+
+        System.out.println("El username es: " + usernameEmail);
+
+        Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
+
+        System.out.println("El Usuario acutal es: " + usuarioActual);
+
+        List<Articulo> articulos = articuloRepository.findAll();
+        List<Articulo> articulosNoPropios;
+
+        if (categoria != null && categoria != -1) {
+            articulosNoPropios = articulos.stream()
+                    .filter(articulo -> articulo.getCategoria().getIdCategoria().equals(categoria)
+                            && !articulo.getPropietario().getIdUsuario().equals(usuarioActual != null ? usuarioActual.getIdUsuario() : null))
+                    .collect(Collectors.toList());
+        } else {
+            articulosNoPropios = articulos.stream()
+                    .filter(articulo -> !articulo.getPropietario().getIdUsuario().equals(usuarioActual != null ? usuarioActual.getIdUsuario() : null))
+                    .collect(Collectors.toList());
+        }
+
+        Map<Integer, List<String>> imagenesPorArticulo = new HashMap<>();
+
+        for (Articulo articulo : articulosNoPropios) {
+
+            List<ImagenArticulo> imagenes = imagenArticuloService.getImagenesByArticulo(articulo);
+
+            List<String> imagenesBase64 = new ArrayList<>();
+            for (ImagenArticulo imagenArticulo : imagenes) {
+                if (imagenArticulo != null) {
+                    byte[] imagenBytes = imagenArticulo.getImagen();
+                    String imagenBase64 = Base64.getEncoder().encodeToString(imagenBytes);
+                    imagenesBase64.add(imagenBase64);
+                } else {
+                    System.out.println("Se encontró una imagen nula en la lista de imágenes del artículo");
+                }
+            }
+
+            imagenesPorArticulo.put(articulo.getIdArticulo(), imagenesBase64);
+        }
+
+        model.addAttribute("usuarioActual", usuarioActual);
+        model.addAttribute("articulos", articulosNoPropios);
+        model.addAttribute("imagenesPorArticulo", imagenesPorArticulo);
+
+        return "listado-articulos";
     }
+
 
     @GetMapping("/listado-articulos/{idArticulo}")
     public String detalleArticulo(@PathVariable("idArticulo") Integer id, Model model) {
@@ -218,5 +276,46 @@ public class ArticuloController {
 
         return "redirect:/perfil";
     }
+
+    @PostMapping("/listado-articulos/{idArticulo}/reservar")
+    public String reservarArticulo(@PathVariable("idArticulo") Integer idArticulo, @RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaFin") String fechaFin, Principal principal, RedirectAttributes redirectAttributes) {
+
+        Articulo articulo = articuloRepository.findById(idArticulo).orElseThrow(() -> new IllegalArgumentException("Artículo no encontrado"));
+
+        System.out.println("El articulo es :" + articulo.getIdArticulo());
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernameEmail = userDetails.getUsername();
+        Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
+
+        System.out.println("El usuario es :" + usuarioActual.getIdUsuario());
+        System.out.println("La fecha inicio es: " + fechaInicio);
+        System.out.println("La fecha fin es: " + fechaFin);
+
+        LocalDate inicio = LocalDate.parse(fechaInicio);
+        LocalDate fin = LocalDate.parse(fechaFin);
+
+        List<Reserva> overlappingReservations = reservaRepository.findOverlappingReservations(idArticulo, inicio, fin);
+
+        if (!overlappingReservations.isEmpty()) {
+            System.out.println("HA ENTRADO EN QUE YA HAY UNA RESERVA");
+            redirectAttributes.addFlashAttribute("error", "El artículo ya está reservado durante las fechas seleccionadas.");
+            return "redirect:/articulos/" + idArticulo;
+        }
+
+        Reserva reserva = new Reserva();
+        reserva.setFechaInicio(LocalDate.parse(fechaInicio));
+        reserva.setFechaFin(LocalDate.parse(fechaFin));
+        reserva.setArticulo(articulo);
+        reserva.setUsuario(usuarioActual);
+        reserva.setEstatus("Act");
+
+        reservaRepository.save(reserva);
+
+        redirectAttributes.addFlashAttribute("success", "Reserva realizada con exito");
+
+        return "redirect:/articulos/" + idArticulo;
+    }
+
 
 }

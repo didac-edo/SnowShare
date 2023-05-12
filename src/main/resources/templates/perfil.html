@@ -22,8 +22,8 @@
             <i class="fas fa-bars"></i>
         </label>
         <ul class="menuDesplegable" id="menuDesplegable">
-            <li>Como funciona</li>
-            <li>Publicar un artículo</li>
+            <a href="/perfil">Perfil</a>
+            <a href="/logout">Logout</a>
         </ul>
         <a href="/index" class="enlace">
             <img src="/imagenes/logo.png" alt="" class="logo">
@@ -31,9 +31,6 @@
         <ul>
             <li><a href="/como-funciona">Como funciona</a></li>
             <li><a href="publicar-articulo">Publicar artículo</a></li>
-            <li><a href="listado-articulos">Articulos</a></li>
-            <li><a href="perfil">Perfil</a></li>
-            <li><a href="iniciar-registrar-sesion">Log out</a></li>
         </ul>
     </nav>
 
@@ -76,6 +73,15 @@
             </div>
             <div class="clase7"></div>
             <div class="clase15">
+                <div th:each="reserva : ${reservas}" class="clase17">
+                    <h3 th:text="${reserva.articulo.titulo}">Nombre Articulo</h3>
+                    <p class="parrafo" th:text="${reserva.fechaInicio}"> Fecha Inicio: </p>
+                    <p class="parrafo" th:text="${reserva.fechaFin}"> Fecha Fin: </p>
+                    <form th:action="@{/eliminarReserva}" method="post">
+                        <input type="hidden" th:value="${reserva.articulo.idArticulo}" name="articuloId"/>
+                        <button type="submit"> Eliminar </button>
+                    </form>
+                </div>
                 <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase16">
                     <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
                     <h3 th:text="${imagenArticulo.articulo.titulo}">Nombre Articulo</h3>
