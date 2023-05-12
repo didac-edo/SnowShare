@@ -67,7 +67,6 @@ function seleccionarImagen() {
 }
 
 function cargarImagen(event) {
-
     let inputFile = event.target;
     let formData = new FormData();
     formData.append('fotoPerfil', inputFile.files[0]);
@@ -78,23 +77,25 @@ function cargarImagen(event) {
         method: 'POST',
         body: formData,
         headers: {
-        "X-CSRF-Token": csrfToken1
+            "X-CSRF-Token": csrfToken1
         }
-    }).then(response => {
+    })
+    .then(response => {
         if (response.ok) {
             return response.blob();
+        } else {
+            throw new Error(response.status + ' ' + response.statusText);
         }
-
-        console.log('Error:', response.status, response.statusText);
-        throw new Error('Error al actualizar la foto de perfil');
-    }).then(imageBlob => {
+    })
+    .then(imageBlob => {
         let reader = new FileReader();
         reader.onload = function() {
             let base64Image = reader.result;
             document.querySelector('.imagen-seleccionada').src = base64Image;
-        }
+        };
         reader.readAsDataURL(imageBlob);
-    }).catch(error => {
+    })
+    .catch(error => {
         console.error('Error al cargar la imagen:', error);
     });
 }

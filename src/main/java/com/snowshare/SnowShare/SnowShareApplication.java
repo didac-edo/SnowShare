@@ -12,4 +12,5 @@ public class SnowShareApplication {
 		SpringApplication.run(SnowShareApplication.class, args);
 	}
 
+
 }
