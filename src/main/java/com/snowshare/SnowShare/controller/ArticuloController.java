@@ -98,7 +98,7 @@ public class ArticuloController {
         }
     }
 
-    @GetMapping("/listado-articulos")
+    /*@GetMapping("/listado-articulos")
     public String listarArticulos(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String usernameEmail = userDetails.getUsername();
@@ -139,7 +139,60 @@ public class ArticuloController {
         model.addAttribute("imagenesPorArticulo", imagenesPorArticulo);
 
         return "listado-articulos";
+    }*/
+
+    @GetMapping("/listado-articulos")
+    public String listarArticulos(Model model, @RequestParam(required = false) Integer categoria) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String usernameEmail = userDetails.getUsername();
+
+        System.out.println("El username es: " + usernameEmail);
+
+        Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
+
+        System.out.println("El Usuario acutal es: " + usuarioActual);
+
+        List<Articulo> articulos = articuloRepository.findAll();
+        List<Articulo> articulosNoPropios;
+
+        if (categoria != null && categoria != -1) {
+            articulosNoPropios = articulos.stream()
+                    .filter(articulo -> articulo.getCategoria().getIdCategoria().equals(categoria)
+                            && !articulo.getPropietario().getIdUsuario().equals(usuarioActual != null ? usuarioActual.getIdUsuario() : null))
+                    .collect(Collectors.toList());
+        } else {
+            articulosNoPropios = articulos.stream()
+                    .filter(articulo -> !articulo.getPropietario().getIdUsuario().equals(usuarioActual != null ? usuarioActual.getIdUsuario() : null))
+                    .collect(Collectors.toList());
+        }
+
+        Map<Integer, List<String>> imagenesPorArticulo = new HashMap<>();
+
+        for (Articulo articulo : articulosNoPropios) {
+
+            List<ImagenArticulo> imagenes = imagenArticuloService.getImagenesByArticulo(articulo);
+
+            List<String> imagenesBase64 = new ArrayList<>();
+            for (ImagenArticulo imagenArticulo : imagenes) {
+                if (imagenArticulo != null) {
+                    byte[] imagenBytes = imagenArticulo.getImagen();
+                    String imagenBase64 = Base64.getEncoder().encodeToString(imagenBytes);
+                    imagenesBase64.add(imagenBase64);
+                } else {
+                    System.out.println("Se encontró una imagen nula en la lista de imágenes del artículo");
+                }
+            }
+
+            imagenesPorArticulo.put(articulo.getIdArticulo(), imagenesBase64);
+        }
+
+        model.addAttribute("usuarioActual", usuarioActual);
+        model.addAttribute("articulos", articulosNoPropios);
+        model.addAttribute("imagenesPorArticulo", imagenesPorArticulo);
+
+        return "listado-articulos";
     }
+
 
     @GetMapping("/listado-articulos/{idArticulo}")
     public String detalleArticulo(@PathVariable("idArticulo") Integer id, Model model) {

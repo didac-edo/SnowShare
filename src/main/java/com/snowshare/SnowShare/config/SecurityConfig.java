@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,14 +46,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and()
                 .authorizeRequests()
-                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**", "/como-funciona").permitAll()
+                .antMatchers("/", "/usuarios", "/css/**", "/js/**", "/imagenes/**", "/chat-websocket/**", "/como-funciona", "/index").permitAll()
+                .antMatchers("/publicar-articulo").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/iniciar-registrar-sesion").permitAll()
                 .defaultSuccessUrl("/index")
                 .and()
-                .logout().permitAll();
+                .logout()
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/iniciar-registrar-sesion")
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) // Aceptar solicitudes GET para /logout
+                    .permitAll();
     }
 
     @Override

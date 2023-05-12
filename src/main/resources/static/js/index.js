@@ -10,6 +10,18 @@ function toggleMenu() {
   }
 }
 
+/*function toggleMenu() {
+  mostrarMenu = !mostrarMenu;
+  var menuDesplegable = document.querySelector(".navegador .menuDesplegable");
+  // Esto seleccionará el primer elemento con la clase "menuDesplegable" que sea hijo de un elemento con la clase "navegador"
+  if (mostrarMenu) {
+    menuDesplegable.classList.add("menu-desplegado");
+  } else {
+    menuDesplegable.classList.remove("menu-desplegado");
+  }
+}*/
+
+
 function redirectToArticle(id) {
     window.location.href = "/listado-articulos/" + id;
 }

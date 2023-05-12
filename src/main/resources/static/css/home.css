@@ -546,3 +546,21 @@
   margin: 16px;
   padding: 2rem;
 }
+
+.autocomplete-results {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
+}
+
+.autocomplete-result {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-result:hover {
+  background-color: #eee;
+}
+
