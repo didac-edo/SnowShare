@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     public String index() {
         return "redirect:/iniciar-registrar-sesion";
-    }
+    }*/
 
     @GetMapping("/iniciar-registrar-sesion")
     public String iniciarRegistrarSesion(Model model) {
