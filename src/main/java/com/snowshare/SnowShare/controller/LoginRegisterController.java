@@ -30,6 +30,7 @@ public class LoginRegisterController {
     public String agregarUsuario(@RequestParam String nombre,
                                  @RequestParam String contrasena,
                                  @RequestParam String correoElectronico) throws IOException {
+      
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
         usuario.setContraseña(passwordEncoder.encode(contrasena));
@@ -49,19 +50,4 @@ public class LoginRegisterController {
         usuarioRepository.save(usuario);
         return "redirect:/index";
     }
-
-    /*@PostMapping("/usuarios")
-    public String agregarUsuario(@RequestParam String nombre,
-                                 @RequestParam String contrasena,
-                                 @RequestParam String correoElectronico,
-                                 @RequestParam("fotoPerfil") MultipartFile fotoPerfil) throws IOException {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setContraseña(passwordEncoder.encode(contrasena));
-        usuario.setCorreoElectronico(correoElectronico);
-        usuario.setFotoPerfil(fotoPerfil.getBytes());
-
-        usuarioRepository.save(usuario);
-        return "redirect:/index";
-    }*/
 }
