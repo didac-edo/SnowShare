@@ -14,16 +14,15 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <style>
         .form-group {
             margin-bottom: 20px;
         }
     </style>
-
 
     <link rel="stylesheet" href="/css/estilos.css" type="text/css">
     <link rel="stylesheet" href="/css/detalle-articulo.css" type="text/css">
@@ -56,7 +55,7 @@
                 <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide">
                     <div class="carousel-inner">
                         <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
-                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}">
+                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}" src="">
                         </div>
                     </div>
                     <th:block th:if="${#lists.size(imagenesPorArticulo[articulo.idArticulo])} > 1">
@@ -82,7 +81,7 @@
                 </div>
                 <div class="comentarios">
                     <h4>Añadir comentario:</h4>
-                    <form th:action="@{/articulos/{idArticulo}/comentar(idArticulo=${articulo.idArticulo})}" th:object="${comentario}" method="post">
+                    <form th:action="@{/listado-articulos/{idArticulo}/comentar(idArticulo=${articulo.idArticulo})}" th:object="${comentario}" method="post">
                         <div class="form-group">
                             <textarea class="form-control" th:field="*{comentario}" placeholder="Escribe tu comentario aquí" rows="3"></textarea>
                         </div>
@@ -94,9 +93,9 @@
                     <h4>Comentarios:</h4>
                     <div th:each="resenas : ${resenas}">
                         <div class="resenas">
-                            <p>---------------------</p>
                             <p><strong th:text="${resenas.usuario.nombre}"></strong></p>
                             <p th:text="${resenas.comentario}"></p>
+                            <p>---------------------</p>
                         </div>
                     </div>
                 </div>

@@ -562,3 +562,11 @@
     background-color: rgb(70, 41, 211);
     border: 0px;
 }
+
+.search-input {
+  flex: 1;
+  border: none;
+  font-size: 18px;
+  padding: 5px 10px;
+  background: transparent;
+}

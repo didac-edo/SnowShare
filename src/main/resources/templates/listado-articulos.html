@@ -28,23 +28,22 @@
     <ul>
         <li><a href="/como-funciona">Como funciona</a></li>
         <li><a href="publicar-articulo">Publicar artículo</a></li>
-
     </ul>
 </nav>
 
 <div class="container">
-    <h1>Todos los artículos</h1>
+    <!--h1>Todos los artículos</h1-->
 
     <div th:if="${#lists.isEmpty(articulos)}" class="alert alert-warning">
         No se han encontrado artículos para esta categoría.
     </div>
-    <div class="row">
-        <div th:each="articulo : ${articulos}" class="col-md-4">
+    <div class="clase15">
+        <div th:each="articulo : ${articulos}" class="clase17">
             <div class="articulo" th:onclick="'redirectToArticle(' + ${articulo.idArticulo} + ');'">
                 <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
-                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}">
+                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}" src="">
                         </div>
                     </div>
                 </div>

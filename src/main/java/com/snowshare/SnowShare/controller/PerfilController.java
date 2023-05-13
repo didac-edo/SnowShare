@@ -82,7 +82,9 @@ public class PerfilController {
 
     @PostMapping("/cambiarFotoPerfil")
     public ResponseEntity<?> cambiarFotoPerfil(@RequestPart("fotoPerfil") MultipartFile fotoPerfil) throws IOException {
+        System.out.println("El cambio de foto es: " + fotoPerfil.toString());
         usuarioService.cambiarFotoPerfil(fotoPerfil.getBytes());
+        System.out.println("Se ha cambiado la foto correctamente");
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.IMAGE_JPEG).body(fotoPerfil.getBytes());
     }
 

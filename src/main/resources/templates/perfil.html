@@ -44,7 +44,7 @@
             <div class="clase1">
                 <div class="clase2">
                     <div class="clase3" id="cambiarFotoPerfil">
-                        <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/imagenes/camera.svg'" alt="Foto de perfil" class="imagen-seleccionada" onclick="seleccionarImagen()">
+                        <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/imagenes/camera.svg'" alt="Foto de perfil" class="imagen-seleccionada" onclick="seleccionarImagen()" src="">
                         <input type="file" id="selector-imagenes" name="fotoPerfil" style="display:none" onchange="cargarImagen(event)">
                     </div>
                 </div>
