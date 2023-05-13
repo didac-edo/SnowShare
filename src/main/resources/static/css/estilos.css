@@ -35,6 +35,7 @@ nav {
   height: 75px;
   /* Establecer la altura en 200 pixels */
   border-bottom: 0.2px solid rgba(0, 0, 0, 0.5);
+  z-index: 30;
 }
 
 /* tamaño de la lista menu  y colocacion*/
@@ -126,6 +127,7 @@ li a:hover {
   height: 0;
   overflow: hidden;
   transition: height 0.5s ease;
+  align-items: center;
 }
 
 .navegador ul.menu-desplegado {
@@ -135,11 +137,6 @@ li a:hover {
 .navegador ul.menu-desplegado li {
   display: block;
   padding: 10px;
-}
-.navegador ul.menu-desplegado li.active,
-.navegador ul.menu-desplegado li:hover {
-  background: #7a4f8f;
-  transition: 0.5s;
 }
 
 a {

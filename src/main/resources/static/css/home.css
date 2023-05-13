@@ -55,7 +55,7 @@
   margin-right: 16px;
   width: 100%;
   margin-bottom: 8px;
-  color: #2f183b;
+  color: rgb(77, 152, 218);
   text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   font-weight: 700;
@@ -76,7 +76,7 @@
   margin-bottom: 54px;
   font-size: 24px;
   line-height: 32px;
-  color: rgb(118, 118, 118) !important;
+  color: rgb(118, 118, 118);
   font-weight: 300 !important;
 }
 
@@ -563,4 +563,3 @@
 .autocomplete-result:hover {
   background-color: #eee;
 }
-

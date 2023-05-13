@@ -26,7 +26,7 @@
             <a href="/logout">Logout</a>
         </ul>
         <a href="/index" class="enlace">
-            <img src="/imagenes/logo.png" alt="" class="logo">
+            <img src="/imagenes/logo1-head.png" alt="" class="logo">
         </a>
         <ul>
             <li><a href="/como-funciona">Como funciona</a></li>
@@ -44,7 +44,7 @@
             <div class="clase1">
                 <div class="clase2">
                     <div class="clase3" id="cambiarFotoPerfil">
-                        <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/imagenes/camera.svg'" alt="Foto de perfil" class="imagen-seleccionada" onclick="seleccionarImagen()">
+                        <img th:src="${fotoPerfilBase64 != null} ? 'data:image/jpeg;base64,' + ${fotoPerfilBase64} : '/imagenes/camera.svg'" alt="Foto de perfil" class="imagen-seleccionada" onclick="seleccionarImagen()" src="">
                         <input type="file" id="selector-imagenes" name="fotoPerfil" style="display:none" onchange="cargarImagen(event)">
                     </div>
                 </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="clase7"></div>
             <div class="clase15">
-                <div th:each="reserva : ${reservas}" class="clase17">
+                <div th:each="reserva : ${reservas}" class="clase16">
                     <h3 th:text="${reserva.articulo.titulo}">Nombre Articulo</h3>
                     <p class="parrafo" th:text="${reserva.fechaInicio}"> Fecha Inicio: </p>
                     <p class="parrafo" th:text="${reserva.fechaFin}"> Fecha Fin: </p>
@@ -82,7 +82,7 @@
                         <button type="submit"> Eliminar </button>
                     </form>
                 </div>
-                <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase16">
+                <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase17">
                     <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
                     <h3 th:text="${imagenArticulo.articulo.titulo}">Nombre Articulo</h3>
                     <p class="parrafo" th:text="${imagenArticulo.articulo.descripcion}">Descripcion Articulo</p>

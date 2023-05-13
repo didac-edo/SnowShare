@@ -41,7 +41,7 @@
             <a href="/logout">Logout</a>
         </ul>
         <a href="/index" class="enlace">
-            <img src="/imagenes/logo.png" alt="" class="logo">
+            <img src="/imagenes/logo1-head.png" alt="" class="logo">
         </a>
         <ul>
             <li><a href="/como-funciona">Como funciona</a></li>
@@ -91,7 +91,9 @@
                                             Categoría
                                         </p>
                                         <div class="class18">
-                                            <select id="categoria" th:field="*{categoria}">
+                                            <!--select id="categoria" th:field="*{categoria}" class="search-input"-->
+                                            <select id="categoria" name="categoria" class="search-input">
+                                                <option value="" disabled selected>Seleccionar categoria...</option>
                                                 <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
                                             </select>
                                         </div>

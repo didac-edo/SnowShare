@@ -67,7 +67,6 @@ function seleccionarImagen() {
 }
 
 function cargarImagen(event) {
-
     let inputFile = event.target;
     let formData = new FormData();
     formData.append('fotoPerfil', inputFile.files[0]);
@@ -78,23 +77,25 @@ function cargarImagen(event) {
         method: 'POST',
         body: formData,
         headers: {
-        "X-CSRF-Token": csrfToken1
+            "X-CSRF-Token": csrfToken1
         }
-    }).then(response => {
+    })
+    .then(response => {
         if (response.ok) {
             return response.blob();
+        } else {
+            throw new Error(response.status + ' ' + response.statusText);
         }
-
-        console.log('Error:', response.status, response.statusText);
-        throw new Error('Error al actualizar la foto de perfil');
-    }).then(imageBlob => {
+    })
+    .then(imageBlob => {
         let reader = new FileReader();
         reader.onload = function() {
             let base64Image = reader.result;
             document.querySelector('.imagen-seleccionada').src = base64Image;
-        }
+        };
         reader.readAsDataURL(imageBlob);
-    }).catch(error => {
+    })
+    .catch(error => {
         console.error('Error al cargar la imagen:', error);
     });
 }
@@ -141,19 +142,23 @@ opcion4.classList.remove('clase14');
 opcion4.classList.add('clase12');
 });
 
-// Obtenemos los elementos de los contenidos que queremos mostrar u ocultar
-var contenido1 = document.getElementsByClassName("clase16")[0];
-var contenido2 = document.getElementsByClassName("clase17")[0];
+var contenido1 = document.getElementsByClassName("clase16");
+var contenido2 = document.getElementsByClassName("clase17");
 
-// Agregamos un evento click a cada opción
 opcion1.addEventListener("click", function() {
-  // Mostramos el contenido de la opcion1 y ocultamos el contenido de la opcion2
-  contenido1.style.display = "flex";
-  contenido2.style.display = "none";
+  for (var i = 0; i < contenido1.length; i++) {
+    contenido1[i].style.display = "flex";
+  }
+  for (var i = 0; i < contenido2.length; i++) {
+    contenido2[i].style.display = "none";
+  }
 });
 
 opcion2.addEventListener("click", function() {
-  // Mostramos el contenido de la opcion2 y ocultamos el contenido de la opcion1
-  contenido2.style.display = "flex";
-  contenido1.style.display = "none";
+  for (var i = 0; i < contenido2.length; i++) {
+    contenido2[i].style.display = "flex";
+  }
+  for (var i = 0; i < contenido1.length; i++) {
+    contenido1[i].style.display = "none";
+  }
 });
