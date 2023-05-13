@@ -68,6 +68,8 @@ body{
 }
 
 .imagen-seleccionada {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     max-width: 180px;
     max-height: 180px;
@@ -186,7 +188,7 @@ body{
 .clase16 {
 
     width: 300px;
-    height: 300px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -203,7 +205,7 @@ body{
 .clase17 {
 
     width: 300px;
-    height: 300px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -225,20 +227,30 @@ body{
     width: 90%;
     height: 50%;
     border-radius: 10px;
-    border: 1px solid #000;
 }
 
 h3,
 h5 {
     margin: 0;
     padding: 10px 0;
-    border: 1px solid #000;
+    font: inherit;
+    vertical-align: baseline;
+    margin-right: 16px;
+    font-size: 20px;
+    line-height: 34px;
+    font-family: MuseoSans, Helvetica;
 }
 
 .parrafo {
     margin: 0;
     padding: 0 0 20px 0;
-    border: 1px solid #000;
+    font: inherit;
+    vertical-align: baseline;
+    margin-right: 16px;
+    font-size: 15px;
+    line-height: 18px;
+    font-family: MuseoSans, Helvetica;
+    color: #2f183b;
 }
 
 button {

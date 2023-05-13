@@ -142,19 +142,23 @@ opcion4.classList.remove('clase14');
 opcion4.classList.add('clase12');
 });
 
-// Obtenemos los elementos de los contenidos que queremos mostrar u ocultar
-var contenido1 = document.getElementsByClassName("clase16")[0];
-var contenido2 = document.getElementsByClassName("clase17")[0];
+var contenido1 = document.getElementsByClassName("clase16");
+var contenido2 = document.getElementsByClassName("clase17");
 
-// Agregamos un evento click a cada opción
 opcion1.addEventListener("click", function() {
-  // Mostramos el contenido de la opcion1 y ocultamos el contenido de la opcion2
-  contenido1.style.display = "flex";
-  contenido2.style.display = "none";
+  for (var i = 0; i < contenido1.length; i++) {
+    contenido1[i].style.display = "flex";
+  }
+  for (var i = 0; i < contenido2.length; i++) {
+    contenido2[i].style.display = "none";
+  }
 });
 
 opcion2.addEventListener("click", function() {
-  // Mostramos el contenido de la opcion2 y ocultamos el contenido de la opcion1
-  contenido2.style.display = "flex";
-  contenido1.style.display = "none";
+  for (var i = 0; i < contenido2.length; i++) {
+    contenido2[i].style.display = "flex";
+  }
+  for (var i = 0; i < contenido1.length; i++) {
+    contenido1[i].style.display = "none";
+  }
 });
