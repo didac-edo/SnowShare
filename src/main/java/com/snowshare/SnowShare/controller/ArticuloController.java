@@ -272,6 +272,7 @@ public class ArticuloController {
 
         reservaRepository.save(reserva);
 
+
         redirectAttributes.addFlashAttribute("success", "Reserva realizada con exito");
 
         return "redirect:/articulos/" + idArticulo;
