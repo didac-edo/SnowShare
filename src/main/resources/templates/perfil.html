@@ -30,7 +30,7 @@
         </a>
         <ul>
             <li><a href="/como-funciona">Como funciona</a></li>
-            <li><a href="publicar-articulo">Publicar artículo</a></li>
+            <li><a href="/publicar-articulo">Publicar artículo</a></li>
         </ul>
     </nav>
 
@@ -73,13 +73,12 @@
             </div>
             <div class="clase7"></div>
             <div class="clase15">
-                <div th:each="reserva : ${reservas}" class="clase16">
+                <div th:each="reserva, i : ${reservas}" class="clase16">
                     <h3 th:text="${reserva.articulo.titulo}">Nombre Articulo</h3>
-                    <p class="parrafo" th:text="${reserva.fechaInicio}"> Fecha Inicio: </p>
-                    <p class="parrafo" th:text="${reserva.fechaFin}"> Fecha Fin: </p>
+                    <p class="parrafo" th:text="${descReservas[i.index]}"> </p>
                     <form th:action="@{/eliminarReserva}" method="post">
-                        <input type="hidden" th:value="${reserva.articulo.idArticulo}" name="articuloId"/>
-                        <button type="submit"> Cancelar </button>
+                        <input type="hidden" th:value="${reserva.idReserva}" name="reservaId"/>
+                        <button type="submit"> Cancelar reserva </button>
                     </form>
                 </div>
                 <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase17">

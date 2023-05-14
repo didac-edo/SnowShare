@@ -1,13 +1,7 @@
 package com.snowshare.SnowShare.controller;
 
-import com.snowshare.SnowShare.models.Articulo;
-import com.snowshare.SnowShare.models.ImagenArticulo;
-import com.snowshare.SnowShare.models.Reserva;
-import com.snowshare.SnowShare.models.Usuario;
-import com.snowshare.SnowShare.repository.ArticuloRepository;
-import com.snowshare.SnowShare.repository.ImagenArticuloRepository;
-import com.snowshare.SnowShare.repository.ReservaRepository;
-import com.snowshare.SnowShare.repository.UsuarioRepository;
+import com.snowshare.SnowShare.models.*;
+import com.snowshare.SnowShare.repository.*;
 import com.snowshare.SnowShare.service.UsuarioService;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +19,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 
 import java.io.IOException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,6 +43,9 @@ public class PerfilController {
     @Autowired
     private ReservaRepository reservaRepository;
 
+    @Autowired
+    private ResenaRepository resenaRepository;
+
     @GetMapping("/perfil")
     public String mostrarPerfil(Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -53,7 +53,29 @@ public class PerfilController {
         Usuario usuarioActual = usuarioRepository.findByCorreoElectronico(usernameEmail);
 
         List<Reserva> reservas = reservaRepository.findByUsuarioIdUsuario(usuarioActual.getIdUsuario());
+        List<String> descReservas = new ArrayList<>();
+
+        for (Reserva reserva : reservas) {
+            long diasReservados = ChronoUnit.DAYS.between(reserva.getFechaInicio(), reserva.getFechaFin());
+            BigDecimal diasReservadosBD = new BigDecimal(diasReservados);
+            BigDecimal precio = reserva.getArticulo().getPrecioDia();
+            BigDecimal precioTotal = precio.multiply(diasReservadosBD);
+
+            String descReserva;
+            if (reserva.getArticulo().getDescuentoPrecio() == null || reserva.getArticulo().getDescuentoPrecio() == 0) {
+                descReserva = "El precio total de la reserva ha sido de: " + precioTotal.setScale(2, RoundingMode.HALF_UP) + " €";
+            } else {
+                BigDecimal descuentoDecimal = new BigDecimal(reserva.getArticulo().getDescuentoPrecio()).divide(new BigDecimal(100));
+                BigDecimal cantidadDescuento = precioTotal.multiply(descuentoDecimal);
+                BigDecimal precioConDescuento = precioTotal.subtract(cantidadDescuento);
+                descReserva = "El precio total de la reserva con un descuento del " + reserva.getArticulo().getDescuentoPrecio() + " % ha sido de: " + precioConDescuento.setScale(2, RoundingMode.HALF_UP) + " €";
+            }
+            descReservas.add(descReserva);
+        }
+
+        model.addAttribute("descReservas", descReservas);
         model.addAttribute("reservas", reservas);
+
 
         List<ImagenArticulo> primerasImagenes = imagenArticuloRepository.findFirstImagesByUser(usuarioActual.getIdUsuario());
 
@@ -97,8 +119,13 @@ public class PerfilController {
         if (articulo != null) {
             System.out.println("Encontrado articulo con ID: " + articulo.getIdArticulo());
 
-            List<ImagenArticulo> imagenesArticulo = imagenArticuloRepository.findByArticuloIdArticulo(articulo.getIdArticulo());
+            List<Reserva> reservas = reservaRepository.findByArticuloIdArticulo(articulo.getIdArticulo());
+            reservaRepository.deleteInBatch(reservas);
 
+            List<Resena> resenas = resenaRepository.findByArticuloIdArticulo(articulo.getIdArticulo());
+            resenaRepository.deleteInBatch(resenas);
+
+            List<ImagenArticulo> imagenesArticulo = imagenArticuloRepository.findByArticuloIdArticulo(articulo.getIdArticulo());
             imagenArticuloRepository.deleteInBatch(imagenesArticulo);
 
             articuloRepository.deleteById(articulo.getIdArticulo());
@@ -111,10 +138,11 @@ public class PerfilController {
     }
 
     @PostMapping("/eliminarReserva")
-    public String eliminiarReserva(@RequestParam("articuloId") Integer articuloId) {
-        System.out.println("Eliminar reserva llamado con ID: " + articuloId);
+    public String eliminiarReserva(@RequestParam("reservaId") Integer reservaId) {
+        System.out.println("Eliminar reserva llamado con ID: " + reservaId);
 
-        Reserva reserva = reservaRepository.findById(articuloId).orElse(null);
+        //Reserva reserva = reservaRepository.findById(articuloId).orElse(null);
+        Reserva reserva = reservaRepository.findById(reservaId).orElse(null);
 
         if (reserva != null) {
             System.out.println("Encontrado reserva con ID: " + reserva.getIdReserva());
@@ -123,7 +151,7 @@ public class PerfilController {
 
             System.out.println("Reserva eliminado con ID: " + reserva.getIdReserva());
         } else {
-            System.out.println("No se encontró articulo con ID: " + articuloId);
+            System.out.println("No se encontró articulo con ID: " + reservaId);
         }
         return "redirect:/perfil";
     }

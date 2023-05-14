@@ -1,3 +1,9 @@
 .form-group {
     margin-bottom: 20px;
 }
+
+.imagen-seleccionada {
+    width: 150px;    /* Cambia este valor al ancho que prefieras */
+    height: 150px;   /* Cambia este valor a la altura que prefieras */
+    object-fit: cover; /* Esto mantiene las proporciones de la imagen mientras la llena por completo */
+}
