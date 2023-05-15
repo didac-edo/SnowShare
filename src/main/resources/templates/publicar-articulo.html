@@ -32,206 +32,231 @@
 </head>
 
 <body>
-    <nav class="navegador">
-        <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </label>
-        <ul class="menuDesplegable" id="menuDesplegable">
+<nav class="navegador">
+    <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul class="menuDesplegable" id="menuDesplegable">
+        <li>
             <a href="/perfil">Perfil</a>
+        </li>
+        <li>
             <a href="/logout">Cerrar Sesión</a>
-        </ul>
-        <a href="/index" class="enlace">
-            <img src="/imagenes/logo1-head.png" alt="" class="logo">
-        </a>
-        <ul>
-            <li><a href="/como-funciona">Como funciona</a></li>
-            <li><a href="publicar-articulo">Publicar artículo</a></li>
-        </ul>
-    </nav>
+        </li>
+    </ul>
+    <a href="/index" class="enlace">
+        <img src="/imagenes/logo1-head.png" alt="" class="logo">
+    </a>
+    <ul>
+        <li><a href="/como-funciona">Como funciona</a></li>
+        <li><a href="publicar-articulo">Publicar artículo</a></li>
+    </ul>
+</nav>
 
-    <div id="page" class="class1">
-        <div class="class2">
-            <div class="class3">
-                <h1 class="class4">
-                    Agregar articulo    
-                </h1>
-                <div class="class5">
-                    <form action="#" th:action="@{/publicar-articulo}" th:object="${articulo}" method="post" enctype="multipart/form-data" class="class6" onsubmit="return validarFormulario();">
-                        <div class="class7">
-                            <p class="class8">Comparte tus imagenes</p>
-                            <div class="class9">
-                                <img src="/imagenes/camera.svg" alt="Imagen 1" class="imagen-seleccionada" onclick="seleccionarImagen(1)">
-                                <img src="/imagenes/camera.svg" alt="Imagen 2" class="imagen-seleccionada" onclick="seleccionarImagen(2)">
-                                <img src="/imagenes/camera.svg" alt="Imagen 3" class="imagen-seleccionada" onclick="seleccionarImagen(3)">
-                                <img src="/imagenes/camera.svg" alt="Imagen 4" class="imagen-seleccionada" onclick="seleccionarImagen(4)">
-                                <input type="file" id="selector-imagenes" name="imagenes" style="display:none" onchange="cargarImagen(event)">
-                            </div>
-                            <div class="class12">
-                                <p class="class13">Imagen de portada</p>
-                                <p class="class14">
-                                    Haga clic para reordenar, recortar o
-                                    agregar fotos
-                                </p>
-                            </div>
-                            <div class="class15">
-                                <div width="100%" class="class16" name="itemName">
-                                    <p class="class17">
-                                        Titulo del listado
-                                    </p>
-                                    <div class="class18">
-                                        <input type="text" id="titulo" th:field="*{titulo}" required placeholder="Título 40 caracteres máx." class="class19">
-                                    </div>
-                                    <div class="class20"></div>
-                                </div>
-                            </div>
-                            <div class="class15">
-                                <div class="class21">
-                                    <div width="100%" class="class16" placeholder="selecciona una categoría">
-                                        <p class="class17">
-                                            Categoría
-                                        </p>
-                                        <div class="class18">
-                                            <!--select id="categoria" th:field="*{categoria}" class="search-input"-->
-                                            <select id="categoria" name="categoria" class="search-input">
-                                                <option value="" disabled selected>Seleccionar categoria...</option>
-                                                <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
-                                            </select>
-                                        </div>
-                                        <div class="class20"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="class15">
-                                <div height="224px" width="100%" class="class22" name="description">
-                                    <p class="class17">
-                                        Descripción
-                                    </p>
-                                    <textarea class="class23" rows="6" height="224px" wrap="soft" type="text" id="descripcion" th:field="*{descripcion}" required label="Description"></textarea>
-                                </div>
-                            </div>
-                            <div class="class15">
-                                <div width="auto" class="class24">
-                                    <div width="100%" class="class16" name="postalCode">
-                                        <p class="class17">
-                                            Código postal
-                                        </p>
-                                        <div class="class18">
-                                            <input name="postalCode" type="text" id="codigoPostal" th:field="*{codigoPostal}" autocomplete="postal-code" class="class19">
-                                        </div>
-                                        <div class="class20"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="class15">
+<div id="page" class="class1">
+    <div class="class2">
+        <div class="class3">
+            <h1 class="class4">
+                Agregar articulo
+            </h1>
+            <div class="class5">
+                <form action="#" th:action="@{/publicar-articulo}" th:object="${articulo}" method="post" enctype="multipart/form-data" class="class6">
+                    <div class="class7">
+                        <p class="class8">Comparte tus imagenes</p>
+                        <div class="class9">
+                            <img src="/imagenes/camera.svg" alt="Imagen 1" class="imagen-seleccionada" onclick="seleccionarImagen(1)">
+                            <img src="/imagenes/camera.svg" alt="Imagen 2" class="imagen-seleccionada" onclick="seleccionarImagen(2)">
+                            <img src="/imagenes/camera.svg" alt="Imagen 3" class="imagen-seleccionada" onclick="seleccionarImagen(3)">
+                            <img src="/imagenes/camera.svg" alt="Imagen 4" class="imagen-seleccionada" onclick="seleccionarImagen(4)">
+                            <input type="file" id="selector-imagenes" name="imagenes" style="display:none" onchange="cargarImagen(event)">
+                        </div>
+                        <div class="class12">
+                            <p class="class13">Imagen de portada</p>
+                            <p class="class14">
+                                Haga clic para reordenar, recortar o
+                                agregar fotos
+                            </p>
+                        </div>
+                        <div class="class15">
+                            <div width="100%" class="class16" name="itemName">
                                 <p class="class17">
-                                    Precio de alquiler (€) por:
+                                    Titulo del Articulo
                                 </p>
-                                <div class="class25">
-                                    <div width="100%" class="class16" name="price">
-                                        <p class="class17">
-                                            Día
-                                        </p>
-                                        <div class="class18">
-                                            <input name="price" type="number" id="precioDia" step="0.01" th:field="*{precioDia}" class="class19">
-                                        </div>
-                                        <div class="class20"></div>
-                                    </div>
+                                <div class="class18">
+                                    <input type="text" id="titulo" th:field="*{titulo}" required placeholder="Título 40 caracteres máx." class="class19">
                                 </div>
-                                <p class="class26"></p>
-                            </div>
-                            <div class="class27">
-                                <div width="100%" class="class16" name="estimatedValue">
-                                    <p class="class17">
-                                        Descuento
-                                    </p>
-                                    <div class="class18">
-                                        <input name="estimatedValue" type="number" id="descuentoPrecio" th:field="*{descuentoPrecio}" class="class19">
-                                    </div>
-                                    <div class="class20"></div>
-                                </div>
-                            </div>
-                            <div class="class29">
-                                <div width="100%" class="class16" name="minRentalDays">
-                                    <p class="class17">
-                                        Días mínimos de alquiler
-                                    </p>
-                                    <div class="class18">
-                                        <input name="minRentalDays" type="number" id="diasMinimo" th:field="*{diasMinimo}" class="class19">
-                                    </div>
-                                    <div class="class20"></div>
-                                </div>
-                            </div>
-                            <div class="class32">
-                                <button width="239px" label="Cancel" class="class33">
-                                    <div class="class34">
-                                        <div class="class35">
-                                            Cancelar
-                                        </div>
-                                    </div>
-                                </button>
-                                <button width="239px" type="submit" label="List new item" class="class36">
-                                    <div class="class34">
-                                        <div class="class35">
-                                            Crear Artículo
-                                        </div>
-                                    </div>
-                                </button>
+                                <div id="tituloError" style="color: red; margin-top: 5px;"></div>
+                                <div class="class20"></div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="class15">
+                            <div class="class21">
+                                <div width="100%" class="class16" placeholder="selecciona una categoría">
+                                    <p class="class17">
+                                        Categoría
+                                    </p>
+                                    <div class="class18">
+                                        <!--select id="categoria" th:field="*{categoria}" class="search-input"-->
+                                        <select id="categoria" name="categoria" class="search-input">
+                                            <option value="" disabled selected>Seleccionar categoria...</option>
+                                            <option th:each="categoria : ${categorias}" th:value="${categoria.idCategoria}" th:text="${categoria.nombre}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class15">
+                            <div height="224px" width="100%" class="class22" name="description">
+                                <p class="class17">
+                                    Descripción
+                                </p>
+                                <textarea class="class23" rows="6" height="224px" wrap="soft" type="text" id="descripcion" th:field="*{descripcion}" required label="Description"></textarea>
+                                <div id="descripcionError" style="color: red; margin-top: 5px;"></div>
+                            </div>
+                        </div>
+                        <div class="class15">
+                            <div width="auto" class="class24">
+                                <div width="100%" class="class16" name="postalCode">
+                                    <p class="class17">
+                                        Código postal
+                                    </p>
+                                    <div class="class18">
+                                        <input name="postalCode" type="text" id="codigoPostal" th:field="*{codigoPostal}" autocomplete="postal-code" class="class19">
+                                    </div>
+                                    <div id="codigoPostalError" style="color: red; margin-top: 5px;"></div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class15">
+                            <p class="class17">
+                                Precio de alquiler (€) por:
+                            </p>
+                            <div class="class25">
+                                <div width="100%" class="class16" name="price">
+                                    <p class="class17">
+                                        Día
+                                    </p>
+                                    <div class="class18">
+                                        <input name="price" type="number" id="precioDia" step="1" th:field="*{precioDia}" class="class19" required>
+                                    </div>
+                                    <div id="precioError" style="color: red; margin-top: 5px;"></div>
+                                    <div class="class20"></div>
+                                </div>
+                            </div>
+                            <p class="class26"></p>
+                        </div>
+                        <div class="class27">
+                            <div width="100%" class="class16" name="estimatedValue">
+                                <p class="class17">
+                                    Descuento
+                                </p>
+                                <div class="class18">
+                                    <input name="estimatedValue" type="number" id="descuentoPrecio" th:field="*{descuentoPrecio}" class="class19">
+                                </div>
+                                <div id="descuentoError" style="color: red; margin-top: 5px;"></div>
+                                <div class="class20"></div>
+                            </div>
+                        </div>
+                        <div class="class29">
+                            <div width="100%" class="class16" name="minRentalDays">
+                                <p class="class17">
+                                    Días mínimos de alquiler
+                                </p>
+                                <div class="class18">
+                                    <input name="minRentalDays" type="number" id="diasMinimo" th:field="*{diasMinimo}" class="class19">
+                                </div>
+                                <div class="class20"></div>
+                            </div>
+                        </div>
+                        <div class="class32">
+                            <button width="239px" label="Cancel" class="class33">
+                                <div class="class34">
+                                    <div class="class35">
+                                        Cancelar
+                                    </div>
+                                </div>
+                            </button>
+                            <button type="submit" label="List new item" class="class36" style="width: 239px;">
+                                <div class="class34">
+                                    <div class="class35">
+                                        Crear Artículo
+                                    </div>
+                                </div>
+                            </button>
+                            <script th:inline="javascript">
+                                    document.querySelector(".class36").addEventListener("click", function(event) {
+                                    var titulo = document.getElementById("titulo").value;
+                                    var descripcion = document.getElementById("descripcion").value;
+                                    var codigoPostal = document.getElementById("codigoPostal").value;
+                                    var descuentoPrecio = document.getElementById("descuentoPrecio").value;
+
+                                    var tituloError = document.getElementById("tituloError");
+                                    var descripcionError = document.getElementById("descripcionError");
+                                    var codigoPostalError = document.getElementById("codigoPostalError");
+                                    var precioDia = document.getElementById("precioDia").value;
+                                    var precioError = document.getElementById("precioError");
+                                    var descuentoError = document.getElementById("descuentoError");
+
+                                    tituloError.textContent = "";
+                                    descripcionError.textContent = "";
+                                    codigoPostalError.textContent = "";
+                                    precioError.textContent = "";
+                                    descuentoError.textContent = "";
+
+                                    if (titulo.length > 40) {
+                                      event.preventDefault();
+                                      document.getElementById("titulo").style.border = "1px solid red";
+                                      tituloError.textContent = "El título debe tener menos de 40 caracteres";
+                                    }
+
+                                    if (descripcion.length > 255) {
+                                      event.preventDefault();
+                                      document.getElementById("descripcion").style.border = "1px solid red";
+                                      descripcionError.textContent = "La descripción debe tener menos de 255 caracteres";
+                                    }
+
+                                    if (codigoPostal.length !== 5 || isNaN(codigoPostal)) {
+                                      event.preventDefault();
+                                      document.getElementById("codigoPostal").style.border = "1px solid red";
+                                      codigoPostalError.textContent = "El código postal debe ser un número de 5 dígitos";
+                                    }
+
+                                    if (precioDia <= 0) {
+                                      event.preventDefault();
+                                      document.getElementById("precioDia").style.border = "1px solid red";
+                                      precioError.textContent = "El precio debe ser mayor a 0";
+                                    }
+
+                                    if (descuentoPrecio > 100) {
+                                      event.preventDefault();
+                                      document.getElementById("descuentoPrecio").style.border = "1px solid red";
+                                      descuentoError.textContent = "El descuento no puede ser mayor al 100%";
+                                    }
+                                    });
+                                </script>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
-    <footer>
-        <button>Inicio sesión</button>
-        <button>Política de privacidad</button>
-        <button>Términos y condiciones</button>
-        <button>Preguntas frecuentes</button>
-        <button>¿Cómo funciona?</button>
-        <div class="iconos">
-            <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
-            <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
-            <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
-        </div>
-    </footer>
-
-    <script>
-        function validarFormulario() {
-            const precioDia = document.getElementById('precioDia');
-            const descuentoPrecio = document.getElementById('descuentoPrecio');
-            const diasMinimo = document.getElementById('diasMinimo');
-            let mensaje = '';
-
-            if (precioDia.value <= 0) {
-                mensaje += 'El precio por día debe ser mayor que 0.\n';
-                precioDia.focus();
-            }
-
-            if (descuentoPrecio.value < 0 || descuentoPrecio.value > 100) {
-                mensaje += 'El descuento debe estar entre 0 y 100.\n';
-                if (mensaje === '') {
-                    descuentoPrecio.focus();
-                }
-            }
-
-            if (diasMinimo.value <= 0) {
-                mensaje += 'Los días mínimos de alquiler deben ser mayores que 0.\n';
-                if (mensaje === '') {
-                    diasMinimo.focus();
-                }
-            }
-
-            if (mensaje !== '') {
-                alert(mensaje);
-                return false;
-            }
-
-            return true;
-        }
-    </script>
+<footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+        <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+        <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+        <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+    </div>
+</footer>
 
 
 </body>

@@ -19,143 +19,130 @@
     <link rel="stylesheet" href="/css/estilos.css" type="text/css">
     <link rel="stylesheet" href="/css/detalle-articulo.css" type="text/css">
     <script src="/js/index.js"></script>
-
-    <script>
-    let imagenSeleccionada = 0;
-
-    window.onload = function() {
-        function seleccionarImagen(numero) {
-            imagenSeleccionada = numero;
-            document.getElementById("selector-imagenes").click();
-        }
-
-        function cargarImagen(event) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector(`.imagen-seleccionada:nth-child(${imagenSeleccionada})`).src = e.target.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        document.getElementById("selector-imagenes").addEventListener("change", cargarImagen);
-
-        // Para cada imagen, añadir un evento click para seleccionarla
-        const imagenes = document.querySelectorAll('.imagen-seleccionada');
-        imagenes.forEach((imagen, index) => {
-            imagen.addEventListener('click', function() {
-                seleccionarImagen(index + 1);
-            });
-        });
-    };
-</script>
-
 </head>
 <body>
-    <nav class="navegador">
-        <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </label>
-        <ul class="menuDesplegable" id="menuDesplegable">
+<nav class="navegador">
+    <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul class="menuDesplegable" id="menuDesplegable">
+        <li>
             <a href="/perfil">Perfil</a>
+        </li>
+        <li>
             <a href="/logout">Cerrar Sesión</a>
-        </ul>
-        <a href="/index" class="enlace">
-            <img src="/imagenes/logo1-head.png" alt="" class="logo">
-        </a>
-        <ul>
-            <li><a href="/como-funciona">Como funciona</a></li>
-            <li><a href="/publicar-articulo">Publicar artículo</a></li>
-        </ul>
-    </nav>
+        </li>
+    </ul>
+    <a href="/index" class="enlace">
+        <img src="/imagenes/logo1-head.png" alt="" class="logo">
+    </a>
+    <ul>
+        <li><a href="/como-funciona">Como funciona</a></li>
+        <li><a href="/publicar-articulo">Publicar artículo</a></li>
+    </ul>
+</nav>
 
-    <div class="container">
-        <h1>Editar artículo</h1>
-        <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post" onsubmit="return validarFormulario();">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <div>
-                            <th:block th:each="imagen, stat : ${imagenesPorArticulo[__${articulo.idArticulo}__]}">
-                                <img th:src="@{'data:image/png;base64,'+${imagen.imagenBase64}}" alt="Imagen" class="imagen-seleccionada">
-                            </th:block>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="titulo">Título:</label>
-                        <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
-                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoPostal">Ubicación:</label>
-                        <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="precioDia">Precio dia:</label>
-                        <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="diasMinimo">Dias minimo:</label>
-                        <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="descuentoPrecio">Descuento precio:</label>
-                        <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
-                    </div>
+<div class="container">
+    <h1 style="margin-bottom: 20px;">Editar artículo</h1>
+    <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="codigoPostal">Codigo Postal</label>
+                    <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
+                </div>
+                <div class="form-group">
+                    <label for="precioDia">Precio (€) dia</label>
+                    <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
+                </div>
+                <div class="form-group">
+                    <label for="diasMinimo">Dias minimo</label>
+                    <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
+                </div>
+                <div class="form-group">
+                    <label for="descuentoPrecio">Descuento precio</label>
+                    <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
+                </div>
             </div>
-        </form>
-    </div>
-    <footer>
-        <button>Inicio sesión</button>
-        <button>Política de privacidad</button>
-        <button>Términos y condiciones</button>
-        <button>Preguntas frecuentes</button>
-        <button>¿Cómo funciona?</button>
-        <div class="iconos">
-            <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
-            <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
-            <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </div>
-    </footer>
+    </form>
+</div>
+<script th:inline="javascript">
+        document.querySelector("form").addEventListener("submit", function(event) {
+            var titulo = document.getElementById("titulo").value;
+            var descripcion = document.getElementById("descripcion").value;
+            var codigoPostal = document.getElementById("codigoPostal").value;
+            var precioDia = document.getElementById("precioDia").value;
+            var diasMinimo = document.getElementById("diasMinimo").value;
+            var descuentoPrecio = document.getElementById("descuentoPrecio").value;
 
-    <script>
-        function validarFormulario() {
-            const precioDia = document.getElementById('precioDia');
-            const descuentoPrecio = document.getElementById('descuentoPrecio');
-            const diasMinimo = document.getElementById('diasMinimo');
-            let mensaje = '';
+            var tituloError = document.createElement("div");
+            var descripcionError = document.createElement("div");
+            var codigoPostalError = document.createElement("div");
+            var precioError = document.createElement("div");
+            var descuentoError = document.createElement("div");
 
-            if (precioDia.value <= 0) {
-                mensaje += 'El precio por día debe ser mayor que 0.\n';
-                precioDia.focus();
+            tituloError.id = "tituloError";
+            descripcionError.id = "descripcionError";
+            codigoPostalError.id = "codigoPostalError";
+            precioError.id = "precioError";
+            descuentoError.id = "descuentoError";
+
+            tituloError.style.color = "red";
+            descripcionError.style.color = "red";
+            codigoPostalError.style.color = "red";
+            precioError.style.color = "red";
+            descuentoError.style.color = "red";
+
+            event.preventDefault();
+
+            if (titulo.length > 40) {
+                tituloError.textContent = "El título debe tener menos de 40 caracteres";
+                document.getElementById("titulo").after(tituloError);
             }
 
-            if (descuentoPrecio.value < 0 || descuentoPrecio.value > 100) {
-                mensaje += 'El descuento debe estar entre 0 y 100.\n';
-                if (mensaje === '') {
-                    descuentoPrecio.focus();
-                }
+            if (descripcion.length > 255) {
+                descripcionError.textContent = "La descripción debe tener menos de 255 caracteres";
+                document.getElementById("descripcion").after(descripcionError);
             }
 
-            if (diasMinimo.value <= 0) {
-                mensaje += 'Los días mínimos de alquiler deben ser mayores que 0.\n';
-                if (mensaje === '') {
-                    diasMinimo.focus();
-                }
+            if (codigoPostal.length !== 5 || !/^\d+$/.test(codigoPostal)) {
+                codigoPostalError.textContent = "El código postal debe ser un número de 5 dígitos";
+                document.getElementById("codigoPostal").after(codigoPostalError);
             }
 
-            if (mensaje !== '') {
-                alert(mensaje);
-                return false;
+            if (isNaN(parseFloat(precioDia)) || parseFloat(precioDia) <= 0) {
+                precioError.textContent = "El precio por día debe ser un número mayor a cero";
+                document.getElementById("precioDia").after(precioError);
             }
 
-            return true;
-        }
+            if (isNaN(parseFloat(descuentoPrecio)) || parseFloat(descuentoPrecio) < 0 || parseFloat(descuentoPrecio) > 100) {
+                descuentoError.textContent = "El descuento debe ser un número entre 0 y 100";
+                document.getElementById("descuentoPrecio").after(descuentoError);
+            }
+        });
     </script>
+
+<footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+        <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+        <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+        <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+    </div>
+</footer>
 </body>
 </html>

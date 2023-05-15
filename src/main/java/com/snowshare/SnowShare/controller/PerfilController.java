@@ -63,12 +63,12 @@ public class PerfilController {
 
             String descReserva;
             if (reserva.getArticulo().getDescuentoPrecio() == null || reserva.getArticulo().getDescuentoPrecio() == 0) {
-                descReserva = "El precio total de la reserva ha sido de: " + precioTotal.setScale(2, RoundingMode.HALF_UP) + " €";
+                descReserva = "La reserva ha sido de " + diasReservadosBD + " dias y el precio total de la reserva ha sido de " + precioTotal.setScale(2, RoundingMode.HALF_UP) + "€";
             } else {
                 BigDecimal descuentoDecimal = new BigDecimal(reserva.getArticulo().getDescuentoPrecio()).divide(new BigDecimal(100));
                 BigDecimal cantidadDescuento = precioTotal.multiply(descuentoDecimal);
                 BigDecimal precioConDescuento = precioTotal.subtract(cantidadDescuento);
-                descReserva = "El precio total de la reserva con un descuento del " + reserva.getArticulo().getDescuentoPrecio() + " % ha sido de: " + precioConDescuento.setScale(2, RoundingMode.HALF_UP) + " €";
+                descReserva = "La reserva ha sido de " + diasReservadosBD + " dias y el precio total de la reserva con un descuento del " + reserva.getArticulo().getDescuentoPrecio() + "% ha sido de " + precioConDescuento.setScale(2, RoundingMode.HALF_UP) + "€";
             }
             descReservas.add(descReserva);
         }
