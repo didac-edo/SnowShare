@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -212,11 +213,26 @@ public class ArticuloController {
     public String mostrarEditarArticulo(@PathVariable("idArticulo") Integer idArticulo, Model model) {
 
         Articulo articulo = articuloRepository.getById(idArticulo);
-
         model.addAttribute("articulo", articulo);
+
+        List<ImagenArticulo> imagenesArticulo = imagenArticuloService.getImagenesByArticulo(articulo);
+        List<ImagenDto> imagenesArticuloDto = imagenesArticulo.stream()
+                .map(imagenArticulo -> {
+                    ImagenDto dto = new ImagenDto();
+                    dto.setImagenBase64(Base64.getEncoder().encodeToString(imagenArticulo.getImagen()));
+                    dto.setIdImagenArticulo(imagenArticulo.getIdImagenArticulo());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        Map<Integer, List<ImagenDto>> imagenesPorArticulo = new HashMap<>();
+        imagenesPorArticulo.put(articulo.getIdArticulo(), imagenesArticuloDto);
+
+        model.addAttribute("imagenesPorArticulo", imagenesPorArticulo);
 
         return "editar_articulo";
     }
+
 
     @PostMapping("/articulos/{idArticulo}/editar")
     public String editarArticulo(@PathVariable("idArticulo") Integer idArticulo, @ModelAttribute("articulo") Articulo articulo, BindingResult result, Model model) {
@@ -225,6 +241,7 @@ public class ArticuloController {
         }
 
         Articulo articuloExistente = articuloRepository.getById(idArticulo);
+
         articuloExistente.setTitulo(articulo.getTitulo());
         articuloExistente.setDescripcion(articulo.getDescripcion());
         articuloExistente.setCodigoPostal(articulo.getCodigoPostal());
@@ -236,6 +253,7 @@ public class ArticuloController {
 
         return "redirect:/perfil";
     }
+
 
     @PostMapping("/listado-articulos/{idArticulo}/reservar")
     public String reservarArticulo(@PathVariable("idArticulo") Integer idArticulo, @RequestParam("fechaInicio") String fechaInicio, @RequestParam("fechaFin") String fechaFin, Principal principal, RedirectAttributes redirectAttributes) {
@@ -255,10 +273,16 @@ public class ArticuloController {
         LocalDate inicio = LocalDate.parse(fechaInicio);
         LocalDate fin = LocalDate.parse(fechaFin);
 
+        long diasReservados = ChronoUnit.DAYS.between(inicio, fin);
+        if (diasReservados < articulo.getDiasMinimo()) {
+            redirectAttributes.addFlashAttribute("error", "La duración mínima de la reserva para este artículo es de " + articulo.getDiasMinimo() + " días.");
+            return "redirect:/articulos/" + idArticulo;
+        }
+
         List<Reserva> overlappingReservations = reservaRepository.findOverlappingReservations(idArticulo, inicio, fin);
 
         if (!overlappingReservations.isEmpty()) {
-            System.out.println("HA ENTRADO EN QUE YA HAY UNA RESERVA");
+            //System.out.println("HA ENTRADO EN QUE YA HAY UNA RESERVA");
             redirectAttributes.addFlashAttribute("error", "El artículo ya está reservado durante las fechas seleccionadas.");
             return "redirect:/articulos/" + idArticulo;
         }
@@ -271,6 +295,7 @@ public class ArticuloController {
         reserva.setEstatus("Act");
 
         reservaRepository.save(reserva);
+
 
         redirectAttributes.addFlashAttribute("success", "Reserva realizada con exito");
 

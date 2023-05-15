@@ -21,62 +21,62 @@
     <script src="/js/index.js"></script>
 </head>
 <body>
-    <nav class="navegador">
-        <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
-            <i class="fas fa-bars"></i>
-        </label>
-        <ul class="menuDesplegable" id="menuDesplegable">
-            <li>
-                <a href="/perfil">Perfil</a>
-            </li>
-            <li>
-                <a href="/logout">Cerrar Sesión</a>
-            </li>
-        </ul>
-        <a href="/index" class="enlace">
-            <img src="/imagenes/logo1-head.png" alt="" class="logo">
-        </a>
-        <ul>
-            <li><a href="/como-funciona">Como funciona</a></li>
-            <li><a href="/publicar-articulo">Publicar artículo</a></li>
-        </ul>
-    </nav>
+<nav class="navegador">
+    <label htmlFor="check-menu" class="checkbtn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </label>
+    <ul class="menuDesplegable" id="menuDesplegable">
+        <li>
+            <a href="/perfil">Perfil</a>
+        </li>
+        <li>
+            <a href="/logout">Cerrar Sesión</a>
+        </li>
+    </ul>
+    <a href="/index" class="enlace">
+        <img src="/imagenes/logo1-head.png" alt="" class="logo">
+    </a>
+    <ul>
+        <li><a href="/como-funciona">Como funciona</a></li>
+        <li><a href="/publicar-articulo">Publicar artículo</a></li>
+    </ul>
+</nav>
 
-    <div class="container">
-        <h1 style="margin-bottom: 20px;">Editar artículo</h1>
-        <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="titulo">Título</label>
-                        <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="descripcion">Descripción</label>
-                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="codigoPostal">Codigo Postal</label>
-                        <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="precioDia">Precio (€) dia</label>
-                        <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="diasMinimo">Dias minimo</label>
-                        <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
-                    </div>
-                    <div class="form-group">
-                        <label for="descuentoPrecio">Descuento precio</label>
-                        <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
-                    </div>
+<div class="container">
+    <h1 style="margin-bottom: 20px;">Editar artículo</h1>
+    <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="codigoPostal">Codigo Postal</label>
+                    <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
+                </div>
+                <div class="form-group">
+                    <label for="precioDia">Precio (€) dia</label>
+                    <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
+                </div>
+                <div class="form-group">
+                    <label for="diasMinimo">Dias minimo</label>
+                    <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
+                </div>
+                <div class="form-group">
+                    <label for="descuentoPrecio">Descuento precio</label>
+                    <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
+                </div>
             </div>
-        </form>
-    </div>
-    <script th:inline="javascript">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
         document.querySelector("form").addEventListener("submit", function(event) {
             var titulo = document.getElementById("titulo").value;
             var descripcion = document.getElementById("descripcion").value;
@@ -132,17 +132,17 @@
         });
     </script>
 
-    <footer>
-        <button>Inicio sesión</button>
-        <button>Política de privacidad</button>
-        <button>Términos y condiciones</button>
-        <button>Preguntas frecuentes</button>
-        <button>¿Cómo funciona?</button>
-        <div class="iconos">
-            <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
-            <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
-            <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
-        </div>
-    </footer>
+<footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+        <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+        <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+        <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+    </div>
+</footer>
 </body>
 </html>
