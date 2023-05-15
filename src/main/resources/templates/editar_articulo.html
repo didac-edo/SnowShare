@@ -26,8 +26,12 @@
             <i class="fas fa-bars"></i>
         </label>
         <ul class="menuDesplegable" id="menuDesplegable">
-            <a href="/perfil">Perfil</a>
-            <a href="/logout">Cerrar Sesión</a>
+            <li>
+                <a href="/perfil">Perfil</a>
+            </li>
+            <li>
+                <a href="/logout">Cerrar Sesión</a>
+            </li>
         </ul>
         <a href="/index" class="enlace">
             <img src="/imagenes/logo1-head.png" alt="" class="logo">
@@ -39,32 +43,32 @@
     </nav>
 
     <div class="container">
-        <h1>Editar artículo</h1>
+        <h1 style="margin-bottom: 20px;">Editar artículo</h1>
         <form action="#" th:action="@{/articulos/{idArticulo}/editar(idArticulo=${articulo.idArticulo})}" th:object="${articulo}" method="post">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="titulo">Título:</label>
+                        <label for="titulo">Título</label>
                         <input type="text" class="form-control" id="titulo" th:field="*{titulo}" />
                     </div>
                     <div class="form-group">
-                        <label for="descripcion">Descripción:</label>
+                        <label for="descripcion">Descripción</label>
                         <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="codigoPostal">Ubicación:</label>
+                        <label for="codigoPostal">Codigo Postal</label>
                         <input type="text" class="form-control" id="codigoPostal" th:field="*{codigoPostal}" />
                     </div>
                     <div class="form-group">
-                        <label for="precioDia">Precio dia:</label>
+                        <label for="precioDia">Precio (€) dia</label>
                         <input type="text" class="form-control" id="precioDia" th:field="*{precioDia}" />
                     </div>
                     <div class="form-group">
-                        <label for="diasMinimo">Dias minimo:</label>
+                        <label for="diasMinimo">Dias minimo</label>
                         <input type="text" class="form-control" id="diasMinimo" th:field="*{diasMinimo}" th:value="${articulo.diasMinimo != null ? articulo.diasMinimo : 0}" />
                     </div>
                     <div class="form-group">
-                        <label for="descuentoPrecio">Descuento precio:</label>
+                        <label for="descuentoPrecio">Descuento precio</label>
                         <input type="text" class="form-control" id="descuentoPrecio" th:field="*{descuentoPrecio}" />
                     </div>
                 </div>
@@ -72,6 +76,62 @@
             </div>
         </form>
     </div>
+    <script th:inline="javascript">
+        document.querySelector("form").addEventListener("submit", function(event) {
+            var titulo = document.getElementById("titulo").value;
+            var descripcion = document.getElementById("descripcion").value;
+            var codigoPostal = document.getElementById("codigoPostal").value;
+            var precioDia = document.getElementById("precioDia").value;
+            var diasMinimo = document.getElementById("diasMinimo").value;
+            var descuentoPrecio = document.getElementById("descuentoPrecio").value;
+
+            var tituloError = document.createElement("div");
+            var descripcionError = document.createElement("div");
+            var codigoPostalError = document.createElement("div");
+            var precioError = document.createElement("div");
+            var descuentoError = document.createElement("div");
+
+            tituloError.id = "tituloError";
+            descripcionError.id = "descripcionError";
+            codigoPostalError.id = "codigoPostalError";
+            precioError.id = "precioError";
+            descuentoError.id = "descuentoError";
+
+            tituloError.style.color = "red";
+            descripcionError.style.color = "red";
+            codigoPostalError.style.color = "red";
+            precioError.style.color = "red";
+            descuentoError.style.color = "red";
+
+            event.preventDefault();
+
+            if (titulo.length > 40) {
+                tituloError.textContent = "El título debe tener menos de 40 caracteres";
+                document.getElementById("titulo").after(tituloError);
+            }
+
+            if (descripcion.length > 255) {
+                descripcionError.textContent = "La descripción debe tener menos de 255 caracteres";
+                document.getElementById("descripcion").after(descripcionError);
+            }
+
+            if (codigoPostal.length !== 5 || !/^\d+$/.test(codigoPostal)) {
+                codigoPostalError.textContent = "El código postal debe ser un número de 5 dígitos";
+                document.getElementById("codigoPostal").after(codigoPostalError);
+            }
+
+            if (isNaN(parseFloat(precioDia)) || parseFloat(precioDia) <= 0) {
+                precioError.textContent = "El precio por día debe ser un número mayor a cero";
+                document.getElementById("precioDia").after(precioError);
+            }
+
+            if (isNaN(parseFloat(descuentoPrecio)) || parseFloat(descuentoPrecio) < 0 || parseFloat(descuentoPrecio) > 100) {
+                descuentoError.textContent = "El descuento debe ser un número entre 0 y 100";
+                document.getElementById("descuentoPrecio").after(descuentoError);
+            }
+        });
+    </script>
+
     <footer>
         <button>Inicio sesión</button>
         <button>Política de privacidad</button>

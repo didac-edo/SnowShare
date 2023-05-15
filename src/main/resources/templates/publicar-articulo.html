@@ -37,8 +37,12 @@
             <i class="fas fa-bars"></i>
         </label>
         <ul class="menuDesplegable" id="menuDesplegable">
-            <a href="/perfil">Perfil</a>
-            <a href="/logout">Cerrar Sesión</a>
+            <li>
+                <a href="/perfil">Perfil</a>
+            </li>
+            <li>
+                <a href="/logout">Cerrar Sesión</a>
+            </li>
         </ul>
         <a href="/index" class="enlace">
             <img src="/imagenes/logo1-head.png" alt="" class="logo">
@@ -76,11 +80,12 @@
                             <div class="class15">
                                 <div width="100%" class="class16" name="itemName">
                                     <p class="class17">
-                                        Titulo del listado
+                                        Titulo del Articulo
                                     </p>
                                     <div class="class18">
                                         <input type="text" id="titulo" th:field="*{titulo}" required placeholder="Título 40 caracteres máx." class="class19">
                                     </div>
+                                    <div id="tituloError" style="color: red; margin-top: 5px;"></div>
                                     <div class="class20"></div>
                                 </div>
                             </div>
@@ -107,6 +112,7 @@
                                         Descripción
                                     </p>
                                     <textarea class="class23" rows="6" height="224px" wrap="soft" type="text" id="descripcion" th:field="*{descripcion}" required label="Description"></textarea>
+                                    <div id="descripcionError" style="color: red; margin-top: 5px;"></div>
                                 </div>
                             </div>
                             <div class="class15">
@@ -118,6 +124,7 @@
                                         <div class="class18">
                                             <input name="postalCode" type="text" id="codigoPostal" th:field="*{codigoPostal}" autocomplete="postal-code" class="class19">
                                         </div>
+                                        <div id="codigoPostalError" style="color: red; margin-top: 5px;"></div>
                                         <div class="class20"></div>
                                     </div>
                                 </div>
@@ -132,8 +139,9 @@
                                             Día
                                         </p>
                                         <div class="class18">
-                                            <input name="price" type="number" id="precioDia" step="0.01" th:field="*{precioDia}" class="class19">
+                                            <input name="price" type="number" id="precioDia" step="1" th:field="*{precioDia}" class="class19" required>
                                         </div>
+                                        <div id="precioError" style="color: red; margin-top: 5px;"></div>
                                         <div class="class20"></div>
                                     </div>
                                 </div>
@@ -147,6 +155,7 @@
                                     <div class="class18">
                                         <input name="estimatedValue" type="number" id="descuentoPrecio" th:field="*{descuentoPrecio}" class="class19">
                                     </div>
+                                    <div id="descuentoError" style="color: red; margin-top: 5px;"></div>
                                     <div class="class20"></div>
                                 </div>
                             </div>
@@ -169,13 +178,64 @@
                                         </div>
                                     </div>
                                 </button>
-                                <button width="239px" type="submit" label="List new item" class="class36">
+                                <button type="submit" label="List new item" class="class36" style="width: 239px;">
                                     <div class="class34">
                                         <div class="class35">
                                             Crear Artículo
                                         </div>
                                     </div>
                                 </button>
+                                <script th:inline="javascript">
+                                    document.querySelector(".class36").addEventListener("click", function(event) {
+                                    var titulo = document.getElementById("titulo").value;
+                                    var descripcion = document.getElementById("descripcion").value;
+                                    var codigoPostal = document.getElementById("codigoPostal").value;
+                                    var descuentoPrecio = document.getElementById("descuentoPrecio").value;
+
+                                    var tituloError = document.getElementById("tituloError");
+                                    var descripcionError = document.getElementById("descripcionError");
+                                    var codigoPostalError = document.getElementById("codigoPostalError");
+                                    var precioDia = document.getElementById("precioDia").value;
+                                    var precioError = document.getElementById("precioError");
+                                    var descuentoError = document.getElementById("descuentoError");
+
+                                    tituloError.textContent = "";
+                                    descripcionError.textContent = "";
+                                    codigoPostalError.textContent = "";
+                                    precioError.textContent = "";
+                                    descuentoError.textContent = "";
+
+                                    if (titulo.length > 40) {
+                                      event.preventDefault();
+                                      document.getElementById("titulo").style.border = "1px solid red";
+                                      tituloError.textContent = "El título debe tener menos de 40 caracteres";
+                                    }
+
+                                    if (descripcion.length > 255) {
+                                      event.preventDefault();
+                                      document.getElementById("descripcion").style.border = "1px solid red";
+                                      descripcionError.textContent = "La descripción debe tener menos de 255 caracteres";
+                                    }
+
+                                    if (codigoPostal.length !== 5 || isNaN(codigoPostal)) {
+                                      event.preventDefault();
+                                      document.getElementById("codigoPostal").style.border = "1px solid red";
+                                      codigoPostalError.textContent = "El código postal debe ser un número de 5 dígitos";
+                                    }
+
+                                    if (precioDia <= 0) {
+                                      event.preventDefault();
+                                      document.getElementById("precioDia").style.border = "1px solid red";
+                                      precioError.textContent = "El precio debe ser mayor a 0";
+                                    }
+
+                                    if (descuentoPrecio > 100) {
+                                      event.preventDefault();
+                                      document.getElementById("descuentoPrecio").style.border = "1px solid red";
+                                      descuentoError.textContent = "El descuento no puede ser mayor al 100%";
+                                    }
+                                    });
+                                </script>
                             </div>
                         </div>
                     </form>

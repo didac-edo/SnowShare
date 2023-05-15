@@ -18,12 +18,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .form-group {
-            margin-bottom: 20px;
-        }
-    </style>
-
     <link rel="stylesheet" href="/css/estilos.css" type="text/css">
     <link rel="stylesheet" href="/css/detalle-articulo.css" type="text/css">
     <script src="/js/index.js"></script>
@@ -36,8 +30,12 @@
             <i class="fas fa-bars"></i>
         </label>
         <ul class="menuDesplegable" id="menuDesplegable">
-            <a href="/perfil">Perfil</a>
-            <a href="/logout">Cerrar Sesión</a>
+            <li>
+                <a href="/perfil">Perfil</a>
+            </li>
+            <li>
+                <a href="/logout">Cerrar Sesión</a>
+            </li>
         </ul>
         <a href="/index" class="enlace">
             <img src="/imagenes/logo1-head.png" alt="" class="logo">
@@ -52,50 +50,71 @@
         <h1>Detalle del artículo</h1>
         <div class="row">
             <div class="col-md-12">
-                <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
-                            <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}" src="">
+                <div class="sectores">
+                    <div class="sector1">
+                        <div th:id="'carouselExampleControls' + ${articulo.idArticulo}" class="carousel slide">
+                            <div class="carousel-inner">
+                                <div th:each="imagenBase64, iterStat : ${imagenesPorArticulo[articulo.idArticulo]}" class="carousel-item" th:classappend="${iterStat.first} ? 'active' : ''">
+                                    <img th:src="'data:image/png;base64,' + ${imagenBase64}" class="d-block w-100" th:alt="${articulo.titulo}" src="">
+                                </div>
+                            </div>
+                            <th:block th:if="${#lists.size(imagenesPorArticulo[articulo.idArticulo])} > 1">
+                                <a class="carousel-control-prev" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </th:block>
                         </div>
                     </div>
-                    <th:block th:if="${#lists.size(imagenesPorArticulo[articulo.idArticulo])} > 1">
-                        <a class="carousel-control-prev" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" th:href="'#carouselExampleControls' + ${articulo.idArticulo}" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </th:block>
-                </div>
-                <h3 th:text="${articulo.titulo}"></h3>
-                <p><strong>Descripción:</strong> <span th:text="${articulo.descripcion}"></span></p>
-                <p><strong>Ubicación:</strong> <span id="codigoPostal" th:text="${articulo.codigoPostal}" hidden></span></p>
-                <div id="map" data-codigo-postal="${articulo.codigoPostal}" style="width: 100%; height: 400px;"></div>
-                <div class="form-group">
-                    <input type="hidden" id="idArticulo" th:value="${articulo.idArticulo}" />
-                    <label>Seleccione las fechas de reserva:</label>
-                    <div id="calendar"></div>
-                    <button id="reservar" class="btn btn-primary">Reservar</button>
-                </div>
-                <div class="comentarios">
-                    <h4>Añadir comentario:</h4>
-                    <form th:action="@{/listado-articulos/{idArticulo}/comentar(idArticulo=${articulo.idArticulo})}" th:object="${comentario}" method="post">
+                    <div class="sector3">
                         <div class="form-group">
-                            <textarea class="form-control" th:field="*{comentario}" placeholder="Escribe tu comentario aquí" rows="3"></textarea>
+                            <input type="hidden" id="idArticulo" th:value="${articulo.idArticulo}" />
+                            <label class="clase1">Seleccione las fechas de reserva</label>
+                            <div id="calendar"></div>
+                            <button id="reservar" class="btn btn-primary clase2">Reservar</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar comentario</button>
-                    </form>
+                    </div>
+                </div>
+                <div class="sector2">
+                    <h2 th:text="${articulo.titulo}"></h2>
+                    <p><h3><strong>Descripción</strong></h3> <span th:text="${articulo.descripcion}"></span></p>
+                    <p><h3><strong>Ubicación</strong></h3> <span id="codigoPostal" th:text="${articulo.codigoPostal}" hidden></span></p>
+                    <div id="map" data-codigo-postal="${articulo.codigoPostal}" style="width: 100%; height: 400px;"></div>
                 </div>
 
-                <div class="comentarios-lista">
-                    <h4>Comentarios:</h4>
-                    <div th:each="resenas : ${resenas}">
-                        <div class="resenas">
-                            <p><strong th:text="${resenas.usuario.nombre}"></strong></p>
-                            <p th:text="${resenas.comentario}"></p>
-                            <p>---------------------</p>
+                <div class="sector4">
+                    <div class="comentarios">
+                        <h3>Añadir comentario</h3>
+                        <form th:action="@{/listado-articulos/{idArticulo}/comentar(idArticulo=${articulo.idArticulo})}" th:object="${comentario}" method="post">
+                            <div class="form-group">
+                                <textarea id="comentarioInput" class="form-control" th:field="*{comentario}" placeholder="Escribe tu comentario aquí" rows="3"></textarea>
+                                <div id="mensajeError" style="color: red; margin-top: 5px;"></div>
+                            </div>
+                            <button id="enviarBtn" type="submit" class="btn btn-primary clase2">Enviar comentario</button>
+                        </form>
+                    </div>
+                    <script th:inline="javascript">
+                      document.getElementById("enviarBtn").addEventListener("click", function(event) {
+                        var comentario = document.getElementById("comentarioInput").value;
+                        if (comentario.length > 255) {
+                          event.preventDefault();
+                          document.getElementById("comentarioInput").style.border = "1px solid red";
+                          document.getElementById("mensajeError").textContent = "El comentario debe tener menos de 255 caracteres";
+                        }
+                      });
+                    </script>
+
+                    <div class="comentarios-lista">
+                        <h3>Comentarios</h3>
+                        <div th:each="resenas : ${resenas}">
+                            <div class="resenas">
+                                <h5><strong th:text="${resenas.usuario.nombre}"></strong></h5>
+                                <p th:text="${resenas.comentario}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
