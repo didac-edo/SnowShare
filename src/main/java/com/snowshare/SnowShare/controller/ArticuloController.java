@@ -68,9 +68,13 @@ public class ArticuloController {
         Usuario propietario = usuarioRepository.findByCorreoElectronico(authentication.getName());
         articulo.setPropietario(propietario);
 
+        System.out.println("Guardando articulo...");
         Articulo savedArticulo = articuloRepository.save(articulo);
 
+        System.out.println("Articulo guardado con ID: " + savedArticulo.getIdArticulo());
+
         for (MultipartFile imagen : imagenes) {
+            System.out.println("Procesando imagen...");
             ImagenArticulo imagenArticulo = new ImagenArticulo();
             try {
                 imagenArticulo.setImagen(imagen.getBytes());
@@ -80,6 +84,7 @@ public class ArticuloController {
             }
             imagenArticulo.setArticulo(savedArticulo);
             imagenArticuloRepository.save(imagenArticulo);
+            System.out.println("Imagen guardada con éxito.");
         }
 
         return "redirect:/perfil";

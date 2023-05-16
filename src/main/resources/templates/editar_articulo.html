@@ -76,8 +76,25 @@
         </div>
     </form>
 </div>
-<script th:inline="javascript">
+
+<footer>
+    <button>Inicio sesión</button>
+    <button>Política de privacidad</button>
+    <button>Términos y condiciones</button>
+    <button>Preguntas frecuentes</button>
+    <button>¿Cómo funciona?</button>
+    <div class="iconos">
+        <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
+        <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
+        <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
         document.querySelector("form").addEventListener("submit", function(event) {
+            var isValid = true;
+
             var titulo = document.getElementById("titulo").value;
             var descripcion = document.getElementById("descripcion").value;
             var codigoPostal = document.getElementById("codigoPostal").value;
@@ -103,46 +120,43 @@
             precioError.style.color = "red";
             descuentoError.style.color = "red";
 
-            event.preventDefault();
+
 
             if (titulo.length > 40) {
+                isValid = false;
                 tituloError.textContent = "El título debe tener menos de 40 caracteres";
                 document.getElementById("titulo").after(tituloError);
             }
 
             if (descripcion.length > 255) {
+                isValid = false;
                 descripcionError.textContent = "La descripción debe tener menos de 255 caracteres";
                 document.getElementById("descripcion").after(descripcionError);
             }
 
             if (codigoPostal.length !== 5 || !/^\d+$/.test(codigoPostal)) {
+                isValid = false;
                 codigoPostalError.textContent = "El código postal debe ser un número de 5 dígitos";
                 document.getElementById("codigoPostal").after(codigoPostalError);
             }
 
             if (isNaN(parseFloat(precioDia)) || parseFloat(precioDia) <= 0) {
+                isValid = false;
                 precioError.textContent = "El precio por día debe ser un número mayor a cero";
                 document.getElementById("precioDia").after(precioError);
             }
 
             if (isNaN(parseFloat(descuentoPrecio)) || parseFloat(descuentoPrecio) < 0 || parseFloat(descuentoPrecio) > 100) {
+                isValid = false;
                 descuentoError.textContent = "El descuento debe ser un número entre 0 y 100";
                 document.getElementById("descuentoPrecio").after(descuentoError);
             }
-        });
-    </script>
 
-<footer>
-    <button>Inicio sesión</button>
-    <button>Política de privacidad</button>
-    <button>Términos y condiciones</button>
-    <button>Preguntas frecuentes</button>
-    <button>¿Cómo funciona?</button>
-    <div class="iconos">
-        <button><img src="/imagenes/instagram.png" alt="Icono 1"></button>
-        <button><img src="/imagenes/twitter.png" alt="Icono 2"></button>
-        <button><img src="/imagenes/facebook.png" alt="Icono 3"></button>
-    </div>
-</footer>
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
 </body>
 </html>

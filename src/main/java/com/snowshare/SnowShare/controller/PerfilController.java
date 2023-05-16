@@ -141,7 +141,6 @@ public class PerfilController {
     public String eliminiarReserva(@RequestParam("reservaId") Integer reservaId) {
         System.out.println("Eliminar reserva llamado con ID: " + reservaId);
 
-        //Reserva reserva = reservaRepository.findById(articuloId).orElse(null);
         Reserva reserva = reservaRepository.findById(reservaId).orElse(null);
 
         if (reserva != null) {

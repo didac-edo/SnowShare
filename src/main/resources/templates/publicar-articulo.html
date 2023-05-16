@@ -11,23 +11,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <title>SnowShare</title>
     <script>
-        let imagenSeleccionada = 0;
-
-        function seleccionarImagen(numero) {
-            imagenSeleccionada = numero;
-            document.getElementById("selector-imagenes").click();
-        }
-
-        function cargarImagen(event) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                document.querySelector(`.imagen-seleccionada:nth-child(${imagenSeleccionada})`).src = e.target.result;
+        function validarNumeroDeArchivos(input, maxFiles) {
+            if (input.files.length > maxFiles) {
+                alert("No puedes seleccionar más de " + maxFiles + " imágenes.");
+                input.value = "";
             }
-            reader.readAsDataURL(event.target.files[0]);
         }
-
-        document.getElementById("selector-imagenes").addEventListener("change", cargarImagen);
-
     </script>
 </head>
 
@@ -63,12 +52,9 @@
                 <form action="#" th:action="@{/publicar-articulo}" th:object="${articulo}" method="post" enctype="multipart/form-data" class="class6">
                     <div class="class7">
                         <p class="class8">Comparte tus imagenes</p>
-                        <div class="class9">
-                            <img src="/imagenes/camera.svg" alt="Imagen 1" class="imagen-seleccionada" onclick="seleccionarImagen(1)">
-                            <img src="/imagenes/camera.svg" alt="Imagen 2" class="imagen-seleccionada" onclick="seleccionarImagen(2)">
-                            <img src="/imagenes/camera.svg" alt="Imagen 3" class="imagen-seleccionada" onclick="seleccionarImagen(3)">
-                            <img src="/imagenes/camera.svg" alt="Imagen 4" class="imagen-seleccionada" onclick="seleccionarImagen(4)">
-                            <input type="file" id="selector-imagenes" name="imagenes" style="display:none" onchange="cargarImagen(event)">
+                        <div>
+                            <label for="imagenes">Imágenes:</label>
+                            <input type="file" id="imagenes" name="imagenes" onchange="validarNumeroDeArchivos(this, 5)" multiple>
                         </div>
                         <div class="class12">
                             <p class="class13">Imagen de portada</p>
