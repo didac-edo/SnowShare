@@ -18,7 +18,7 @@ let map;
 let geocoder;
 
 function initMap() {
-    const defaultCoords = [40.416775, -3.703790]; // Coordenadas por defecto (Madrid)
+    const defaultCoords = [40.416775, -3.703790];
     map = L.map('map').setView(defaultCoords, 15);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

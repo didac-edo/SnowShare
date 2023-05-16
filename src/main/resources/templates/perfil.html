@@ -81,7 +81,7 @@
                 <h3 th:text="${reserva.articulo.titulo}">Nombre Articulo</h3>
                 <p class="parrafo" th:text="${descReservas[i.index]}"> </p>
                 <form th:action="@{/eliminarReserva}" method="post">
-                    <input type="hidden" th:value="${reserva.articulo.idArticulo}" name="articuloId"/>
+                    <input type="hidden" th:value="${reserva.idReserva}" name="reservaId"/>
                     <button type="submit"> Cancelar </button>
                 </form>
             </div>

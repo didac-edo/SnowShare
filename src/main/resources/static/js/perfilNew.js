@@ -4,7 +4,6 @@ const nombrecompleto = nombreElemento.textContent.trim();
 console.log("El nombre Elemento: " + nombreElemento);
 console.log("El nombre completo: " + nombrecompleto);
 
-// Asignar el valor obtenido del campo de texto del nombre de usuario de la base de datos al elemento h1.
 nombreElemento.textContent = nombrecompleto;
 
 const nombre = document.getElementById('nombre');
@@ -17,7 +16,6 @@ editar.addEventListener('click', function() {
   nombre.focus();
   nombre.style.borderBottom = '1px solid black';
 
-  // Mostrar el botón "Guardar".
   guardar.style.display = 'inline-block';
 });
 
@@ -36,12 +34,10 @@ nombre.addEventListener('keydown', function(e) {
 document.querySelector(".clase5").addEventListener("submit", function(event) {
   event.preventDefault();
 
-  // Obtener el nuevo valor del campo de texto del nombre de usuario.
   var nuevoNombre = nombre.innerText.trim();
 
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-  // Enviar ese valor al servidor usando una solicitud POST a través de la URL "/actualizarNombre".
   fetch("/actualizarNombre", {
     method: "POST",
     body: JSON.stringify({ nombre: nuevoNombre }),
@@ -51,14 +47,12 @@ document.querySelector(".clase5").addEventListener("submit", function(event) {
     }
   }).then(function(response) {
     if (response.ok) {
-      // Actualizar la página después de recibir la respuesta del servidor.
       window.location.reload();
     } else {
       console.error("Error al actualizar el nombre de usuario.");
     }
   });
 
-  // Ocultar el botón "Guardar".
   guardar.style.display = 'none';
 });
 
