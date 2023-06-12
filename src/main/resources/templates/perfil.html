@@ -84,6 +84,11 @@
                     <input type="hidden" th:value="${reserva.idReserva}" name="reservaId"/>
                     <button type="submit"> Cancelar </button>
                 </form>
+                
+                <a th:href="@{/pagarReserva(reservaId=${reserva.idReserva})}" class="btn btn-primary">
+                    <button type="submit"> Pago Reserva </button>
+                </a>
+                
             </div>
             <div th:each="imagenArticulo, stat : ${primerasImagenes}" class="clase17">
                 <img th:id="'imagen-' + ${stat.index}" th:alt="${imagenArticulo.articulo.titulo}" class="imagen">
