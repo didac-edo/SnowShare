@@ -30,6 +30,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Resena> resenas;
+    
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private TarjetaCredito tarjetaCredito;
 
     public Integer getIdUsuario() {
         return idUsuario;
