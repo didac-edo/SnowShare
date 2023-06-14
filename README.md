@@ -30,6 +30,6 @@ Este proyecto está bajo la licencia MIT - mira el archivo [LICENSE.md](LICENSE.
 
 ## Contacto 📫
 
-Si tienes alguna pregunta o sugerencia, no dudes en enviarnos un correo a [correo@ejemplo.com](mailto:correo@ejemplo.com).
+Si tienes alguna pregunta o sugerencia, no dudes en enviarnos un correo a [didacgibert@gmail.com](mailto:didacgibert@gmail.com).
 
 ¡Esperamos que disfrutes de SnowShare tanto como nosotros disfrutamos creándolo!
